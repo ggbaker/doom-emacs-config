@@ -230,12 +230,6 @@ By default, emacs deletes files permanently. Use the system trash instead:
 (setq-default delete-by-moving-to-trash t)
 #+end_src
 
-In order for emacs to use gpg and ssh keys (say, for git operations), we need to whitelist the ~SSH_AUTH_SOCKS~ and ~SSH_AUTH_PID~ variables. (Doom seems to handle this by default. Will probably delete.)
-#+begin_src emacs-lisp :tangle config.el
-;(when noninteractive
-;  (add-to-list 'doom-env-whitelist "^SSH_"))
-#+end_src
-
 ** Global keybindings
 *** Top level
 I use undo-tree-visualize a lot. Rebind it to the main SPC menu:
