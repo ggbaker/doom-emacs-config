@@ -467,7 +467,7 @@ First make sure helm-bibtex is installed
 Then configure it:
 #+begin_src emacs-lisp :tangle config.el
 (use-package! helm-bibtex
-  ;;:defer t
+  :defer t
   :custom
   (bibtex-completion-bibliography
         '("~/Dropbox/Documents/working/library.bib"))
@@ -484,8 +484,10 @@ Then configure it:
 By default, ~helm-bibtex~ opens the pdf file on <RET>. Change this to "insert citation" instead.
 #+begin_src emacs-lisp :tangle config.el
 ;; (setq helm-bibtex-default-action 'helm-bibtex-insert-citation)
-(helm-delete-action-from-source "Insert citation" helm-source-bibtex)
-(helm-add-action-to-source "Insert citation" 'bibtex-completion-insert-citation helm-source-bibtex 0)
+(after! helm-bibtex
+  (helm-delete-action-from-source "Insert citation" helm-source-bibtex)
+  (helm-add-action-to-source "Insert citation" 'bibtex-completion-insert-citation helm-source-bibtex 0)
+ )
 #+end_src
 
 * PDF viewing
