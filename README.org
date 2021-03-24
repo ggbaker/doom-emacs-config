@@ -207,15 +207,21 @@ Set default user information:
       user-mail-address "gary.baker@wisc.edu")
 #+end_src
 
-** Theme
+** Theme and buffer appearance
 Use the default doom theme and fonts
 #+begin_src emacs-lisp :tangle config.el
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-vibrant)
 #+end_src
 
 Use line numbering by default
 #+begin_src emacs-lisp :tangle config.el
 (setq display-line-numbers-type t)
+#+end_src
+
+I like to keep text columns to under 80 characters long. In code buffers, I use ~auto-fill~, and in prose buffers I use  ~visual-fill-column~. Set the max column width here. (~visual-fill-column~ uses the ~fill-column~ parameter by default, but for some reason seems to fill to 5 less. So I set the ~visual-fill-column-width~ parameter separately to correct for this.)
+#+begin_src emacs-lisp :tangle config.el
+(setq fill-column 79)
+(setq visual-fill-column-width 85)
 #+end_src
 
 ** Technical stuff
@@ -226,8 +232,8 @@ By default, emacs deletes files permanently. Use the system trash instead:
 
 In order for emacs to use gpg and ssh keys (say, for git operations), we need to whitelist the ~SSH_AUTH_SOCKS~ and ~SSH_AUTH_PID~ variables.
 #+begin_src emacs-lisp :tangle config.el
-(when noninteractive
-  (add-to-list 'doom-env-whitelist "^SSH_"))
+;(when noninteractive
+;  (add-to-list 'doom-env-whitelist "^SSH_"))
 #+end_src
 
 ** Global keybindings
@@ -257,7 +263,7 @@ I'm not fan of the Vim-style :%s find and replace. Map the default ~query-replac
 #+end_src
 
 * Org setup
-** Todo [0/3]
+** Todo [0/4]
 - [ ] Formatting commands
   - Bold, italic, underline
 - [ ] Add new snippets
@@ -265,6 +271,13 @@ I'm not fan of the Vim-style :%s find and replace. Map the default ~query-replac
 - [ ] ~helm-bibtex~ insert citation does nothing in org. I thought it worked before, and I'm not sure what changed, but it works in LaTeX, so fixing it isn't high priority...
 - [ ] Config for ~org-jupyter~
   - Not sure what is needed (if anything) until I try some old org files...
+
+** Buffer appearance
+Use visual-fill-column for org. This keeps text width more managable without actually imposing line breaks.
+#+begin_src emacs-lisp :tangle config.el
+(add-hook! org-mode #'visual-fill-column-mode)
+#+end_src
+
 ** General formatting
 ** Citation management
 Use ~helm-bibtex~ for inserting citations. I don't quite get how the ~map!~ macro is supposed to work. For some reason, anything mapped under ~:leader~ seems to always map globally, ignoring the specified keymap. Using ~general~'s default binding command doesn't have this issue.
@@ -325,6 +338,12 @@ Org-download allows clipping screenshots and inserting into buffers (among other
 #+end_src
 
 * LaTeX setup
+** Buffer appearance
+As with org, use visual-fill-column for LaTeX to manage column widths without actually breaking lines.
+#+begin_src emacs-lisp :tangle config.el
+(add-hook! LaTeX-mode #'visual-fill-column-mode)
+#+end_src
+
 ** Basic formatting
 The LaTeX module seems a bit borked, and most of the default keybindings in ~evil-mode~ don't seem to work. This seems to be related to ~AUCteX~'s bizarre multiple mode aliases (e.g. ~LaTeX-mode~ vs. ~latex-mode~).
 
@@ -415,12 +434,6 @@ Map the compile and view commands under the top level local leader. (For some re
       )
 #+end_src
 
-** Auto-fill
-By default I prefer to have latex documents auto-fill at the character limit (default is 80 in doom).
-#+begin_src emacs-lisp :tangle config.el
-(add-hook! LaTeX-mode #'auto-fill-mode)
-#+end_src
-
 ** PDF viewer
 By default, the view command uses one of a few different options for pdf viewers. We want it to default to pdf-tools within emacs.
 #+begin_src emacs-lisp :tangle config.el
@@ -483,3 +496,5 @@ For some reason some of the keybindings for ~pdf-tools~ get overloaded. I assume
       :localleader
       "s" #'pdf-view-set-slice-from-bounding-box)
 #+end_src
+
+On first install or rebuild, run the ~pdf-tools-install~ command.
