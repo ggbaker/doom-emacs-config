@@ -32,9 +32,9 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
 
        :completion
        company           ; the ultimate code completion backend
-       ;(helm +fuzzy)              ; the *other* search engine for love and life
+       (helm +fuzzy)               ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ivy               ; a search engine for love and life
+       ;; ivy               ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -257,21 +257,25 @@ I'm not fan of the Vim-style :%s find and replace. Map the default ~query-replac
 #+end_src
 
 * Org setup
+** Todo [0/3]
+- [ ] Formatting commands
+  - Bold, italic, underline
+- [ ] Add new snippets
+  - SRC block snippets for config
+- [ ] ~helm-bibtex~ insert citation does nothing in org. I thought it worked before, and I'm not sure what changed, but it works in LaTeX, so fixing it isn't high priority...
+- [ ] Config for ~org-jupyter~
+  - Not sure what is needed (if anything) until I try some old org files...
 ** General formatting
 ** Citation management
-Use ~ivy-bibtex~ for inserting citations. I don't quite get how the ~map!~ macro is supposed to work. For some reason, anything mapped under ~:leader~ seems to always map globally, ignoring the specified keymap. Using ~general~'s default binding command doesn't have this issue.
+Use ~helm-bibtex~ for inserting citations. I don't quite get how the ~map!~ macro is supposed to work. For some reason, anything mapped under ~:leader~ seems to always map globally, ignoring the specified keymap. Using ~general~'s default binding command doesn't have this issue.
 #+begin_src emacs-lisp :tangle config.el
-;; (map! :map (evil-org-mode-map)
-;;       (:leader
-;;        :desc "Ivy Bibtex" :ni "]" #'ivy-bibtex))
 (general-define-key
  :states '(normal insert)
  :keymaps 'org-mode-map
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
- "]" 'ivy-bibtex)
+ "]" 'helm-bibtex)
 #+end_src
-
 
 ** Org-roam
 We will use org-roam for building a zettelkasten note-taking. First ensure the necessary packages are installed.
@@ -322,7 +326,9 @@ Org-download allows clipping screenshots and inserting into buffers (among other
 
 * LaTeX setup
 ** Basic formatting
-There's currently a bug (see [[https://github.com/hlissner/doom-emacs/issues/4798][this issue]]) that prevents LaTeX commands under the usual ~SPC m~ prefix. Here we'll recreate some commonly used formatting commands so as to avoid uncomfortable combos like ~C-c C-f C-i~.
+The LaTeX module seems a bit borked, and most of the default keybindings in ~evil-mode~ don't seem to work. This seems to be related to ~AUCteX~'s bizarre multiple mode aliases (e.g. ~LaTeX-mode~ vs. ~latex-mode~).
+
+Here we'll recreate some commonly used formatting commands so as to avoid uncomfortable combos like ~C-c C-f C-i~.
 
 First define the necessary functions for the keybindings.
 #+BEGIN_SRC emacs-lisp :tangle config.el
@@ -342,7 +348,7 @@ First define the necessary functions for the keybindings.
   (interactive)
   (TeX-font nil ?\C-c))
 #+END_SRC
-Now map those under a font prefix. NOTE, there seems be some sort of bug arising from the multiple aliases of ~latex-mode~ for auctex. For example, keybindings mapped to the ~latex-mode-map~ don't seem to end up properly mapped for some reason, but their descriptions for ~which-key~ are stored properly. Conversely, commands mapped to ~LaTeX-mode-map~ get mapped correctly, but the descriptions don't work. BUT, if the command is mapped to both, everything seems to work...
+Now map those under a font prefix. This is where we run into the issue with ~AUCTeX~'s weird mode names bizarre multiple mode aliases (e.g. ~LaTeX-mode~ vs. ~latex-mode~). For example, keybindings mapped to the ~latex-mode-map~ don't seem to end up properly mapped for some reason, but their descriptions for ~which-key~ are stored properly. Conversely, commands mapped to ~LaTeX-mode-map~ get mapped correctly, but the descriptions don't work. BUT, if the command is mapped to both, everything seems to work... See [[https://github.com/hlissner/doom-emacs/issues/4288#issue-746460181][this issue]] for more information.
 #+begin_src emacs-lisp :tangle config.el
 (map! :map latex-mode-map
       ;; :leader
@@ -426,36 +432,29 @@ For some reason, on update/rebuild, if you ~pdf-tools-install~ before calling ~T
 Seems like running ~doom sync~ can also fix the issue? Not really sure what exactly triggers it...
 
 ** Citation management
-Just as with ~org-mode~, we'll use ~ivy-bibtex~ for inserting citations
+Just as with ~org-mode~, we'll use ~helm-bibtex~ for inserting citations
 #+begin_src emacs-lisp :tangle config.el
-;; (add-hook! LaTeX-mode
-;;   (map! :leader
-;;         :desc "Ivy Bibtex" "]" #'ivy-bibtex))
 (general-define-key
  :states '(normal insert)
  :keymaps 'LaTeX-mode-map
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
- "]" 'ivy-bibtex)
+ "]" 'helm-bibtex)
 #+end_src
 
-** Tips to remember
-I'm coming from regular emacs where (with electric-pair mode), typing an opening delimeter with an active region would surround that region with the delimiters. With evil-mode, this can be accomplished in the visual state with ~S-char~ (using the ~evil-surround~ mode in doom by default.)
-
-With emacs, this would also work in math mode if the inserted delimiter was preceded by \left, auto inserting a matching \right. I st
 * Citation management
-We can use ivy-bibtex for searching through a bib file, inserting citations, and (with org-roam) taking notes on papers. (ivy-bibtex could have been installed with the ~biblio~ module in the ~init.el~ file, but it's just easier for me to set my own defaults.)
+We can use helm-bibtex for searching through a bib file, inserting citations, and (with org-roam) taking notes on papers. (helm-bibtex could have been installed with the ~biblio~ module in the ~init.el~ file, but it's just easier for me to set my own defaults.)
 
-First make sure ivy-bibtex is installed
+First make sure helm-bibtex is installed
 #+begin_src emacs-lisp :tangle packages.el
-(package! ivy-bibtex)
-;;(package! org-ref)
+(package! helm-bibtex)
+(package! org-ref)
 #+end_src
 
 Then we can configure it:
 #+begin_src emacs-lisp :tangle config.el
-(use-package! ivy-bibtex
-  :defer t
+(use-package! helm-bibtex
+  ;;:defer t
   :custom
   (bibtex-completion-bibliography
         '("~/Dropbox/Documents/working/library.bib"))
@@ -469,9 +468,11 @@ Then we can configure it:
   )
 #+end_src
 
-By default, ~ivy-bibtex~ opens the pdf file on <RET>. Change this to "insert citation" instead.
+By default, ~helm-bibtex~ opens the pdf file on <RET>. Change this to "insert citation" instead.
 #+begin_src emacs-lisp :tangle config.el
-(setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
+;; (setq helm-bibtex-default-action 'helm-bibtex-insert-citation)
+(helm-delete-action-from-source "Insert citation" helm-source-bibtex)
+(helm-add-action-to-source "Insert citation" 'bibtex-completion-insert-citation helm-source-bibtex 0)
 #+end_src
 
 * PDF viewing
