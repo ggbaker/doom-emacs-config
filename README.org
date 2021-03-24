@@ -200,6 +200,9 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
 #+RESULTS:
 
 * General configuration
+** Todo [0/1]
+- [ ] Push to git with gpg ssh key on yubikey doesn't work.
+
 ** Basic info
 Set default user information:
 #+begin_src emacs-lisp :tangle config.el
