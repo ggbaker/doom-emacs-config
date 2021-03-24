@@ -230,7 +230,7 @@ By default, emacs deletes files permanently. Use the system trash instead:
 (setq-default delete-by-moving-to-trash t)
 #+end_src
 
-In order for emacs to use gpg and ssh keys (say, for git operations), we need to whitelist the ~SSH_AUTH_SOCKS~ and ~SSH_AUTH_PID~ variables.
+In order for emacs to use gpg and ssh keys (say, for git operations), we need to whitelist the ~SSH_AUTH_SOCKS~ and ~SSH_AUTH_PID~ variables. (Doom seems to handle this by default. Will probably delete.)
 #+begin_src emacs-lisp :tangle config.el
 ;(when noninteractive
 ;  (add-to-list 'doom-env-whitelist "^SSH_"))
@@ -273,7 +273,7 @@ I'm not fan of the Vim-style :%s find and replace. Map the default ~query-replac
   - Not sure what is needed (if anything) until I try some old org files...
 
 ** Buffer appearance
-Use visual-fill-column for org. This keeps text width more managable without actually imposing line breaks.
+Use visual-fill-column for org. This keeps text width more manageable without actually imposing line breaks.
 #+begin_src emacs-lisp :tangle config.el
 (add-hook! org-mode #'visual-fill-column-mode)
 #+end_src
@@ -291,7 +291,7 @@ Use ~helm-bibtex~ for inserting citations. I don't quite get how the ~map!~ macr
 #+end_src
 
 ** Org-roam
-We will use org-roam for building a zettelkasten note-taking. First ensure the necessary packages are installed.
+I use org-roam for building a zettelkasten note-taking. First ensure the necessary packages are installed.
 #+begin_src emacs-lisp :tangle packages.el
 ;;(package! org-roam)
 (package! org-roam-bibtex)  ;; Use org-roam for paper notes
@@ -312,14 +312,14 @@ Then configure things. The following block sets the default directory for roam n
       :unnarrowed t))))
 #+end_src
 
-We can then replace the default org-capture keybinding with an org-roam-capture keybinding.
+I only ever use Roam's capture function, so replace the default org-capture keybinding with an org-roam-capture keybinding.
 #+begin_src emacs-lisp :tangle config.el
 (map! :leader
       :desc "New Org-Roam note" "X" #'org-roam-capture)
 #+end_src
     
 ** Org-download
-Org-download allows clipping screenshots and inserting into buffers (among other things). It could have been installed with the ~+dragndrop~ plugin for the ~org~ module, but that didn't work right for me. (screenshots didn't seem to work right.) Instead, we can just manually install and configure it.
+Org-download allows clipping screenshots and inserting into buffers (among other things). It could have been installed with the ~+dragndrop~ plugin for the ~org~ module, but that didn't work right for me. (screenshots didn't seem to work right.) Instead, just manually install and configure it.
 #+begin_src emacs-lisp :tangle packages.el
 (package! org-download)
 #+end_src
@@ -435,7 +435,7 @@ Map the compile and view commands under the top level local leader. (For some re
 #+end_src
 
 ** PDF viewer
-By default, the view command uses one of a few different options for pdf viewers. We want it to default to pdf-tools within emacs.
+By default, the view command uses one of a few different options for pdf viewers. I want it to default to pdf-tools within emacs.
 #+begin_src emacs-lisp :tangle config.el
 (setq +latex-viewers '(pdf-tools))
 #+end_src
@@ -456,7 +456,7 @@ Just as with ~org-mode~, we'll use ~helm-bibtex~ for inserting citations
 #+end_src
 
 * Citation management
-We can use helm-bibtex for searching through a bib file, inserting citations, and (with org-roam) taking notes on papers. (helm-bibtex could have been installed with the ~biblio~ module in the ~init.el~ file, but it's just easier for me to set my own defaults.)
+I use helm-bibtex for searching through a bib file, inserting citations, and (with org-roam) taking notes on papers. (helm-bibtex could have been installed with the ~biblio~ module in the ~init.el~ file, but it's just easier for me to set my own defaults.)
 
 First make sure helm-bibtex is installed
 #+begin_src emacs-lisp :tangle packages.el
@@ -464,7 +464,7 @@ First make sure helm-bibtex is installed
 (package! org-ref)
 #+end_src
 
-Then we can configure it:
+Then configure it:
 #+begin_src emacs-lisp :tangle config.el
 (use-package! helm-bibtex
   ;;:defer t
