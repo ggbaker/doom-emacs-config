@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: unnumbered-latex-equation
+# key: ?le
+# --
+\begin{equation*}
+$1
+\end{equation*}

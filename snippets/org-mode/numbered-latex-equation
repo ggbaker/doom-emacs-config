@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: numbered-latex-equation
+# key: ?len
+# --
+\begin{equation}
+$1
+\end{equation}

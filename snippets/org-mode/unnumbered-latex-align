@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: unnumbered-latex-align
+# key: ?la
+# --
+\begin{align*}
+$1
+\end{align*}

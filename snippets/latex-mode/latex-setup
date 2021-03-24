@@ -1,0 +1,26 @@
+# -*- mode: snippet -*-
+# name: latex-setup
+# key: ?latex-setup
+# --
+\documentclass{fancyArticle}
+
+\checkandfixthelayout
+
+\title{$1}
+\author{Gary Baker}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+$2
+\end{abstract}
+
+\end{document}
+
+%%% Local Variables: 
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-engine: xetex
+%%% End: 

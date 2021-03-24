@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: unnamed-ipython-block
+# key: ?si
+# --
+#+BEGIN_SRC jupyter-python :async yes
+$1
+#+END_SRC

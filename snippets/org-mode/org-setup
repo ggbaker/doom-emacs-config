@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: org-setup
+# key: org-setup
+# --
+# -*- org-export-babel-evaluate: nil -*-
+#+TITLE: $1
+#+AUTHOR: Gary Baker
+#+email: gary.baker@wisc.edu
+#+PROPERTY: header-args :session py :results raw drawer :noweb yes
+#+LATEX_HEADER: \\usepackage{xcolor} \\usepackage{palatino,eulervm}
+#+LATEX_HEADER: \\usepackage{comment} \\excludecomment{answer}
+#+OPTIONS: toc:nil
+#+STARTUP: latexpreview
+-----

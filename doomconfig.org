@@ -1,0 +1,495 @@
+:DOC-CONFIG:
+# Tangle code to config.el unless otherwise specified
+#+property: header-args:emacs-lisp :tangle config.el :results silent
+#+property: header-args :mkdirp yes :comments no
+#+startup: fold
+:END:
+
+#+title: Doom Emacs Configuration
+#+author: Gary Baker
+#+email: gary.baker@wisc.edu
+
+This file contains my configuration for Doom Emacs. It will tangle into the required init.el, packages.el, and config.el.
+
+Upon editing, simply run (in normal model, hit return):
+#+begin_src emacs-lisp :tangle no
+(org-babel-tangle)
+(doom/reload)
+#+end_src
+
+* Init setup
+
+#+begin_src emacs-lisp :tangle init.el
+;;; init.el -*- lexical-binding: t; -*-
+
+;; This file controls what Doom modules are enabled and what order they load
+;; in. Remember to run 'doom sync' after modifying it!
+
+;; NOTE Press 'SPC h d h' (or 'C-h d h' for non-vim users) to access Doom's
+;;      documentation. There you'll find a "Module Index" link where you'll find
+;;      a comprehensive list of Doom's modules and what flags they support.
+
+;; NOTE Move your cursor over a module's name (or its flags) and press 'K' (or
+;;      'C-c c k' for non-vim users) to view its documentation. This works on
+;;      flags as well (those symbols that start with a plus).
+;;
+;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
+;;      directory (for easy access to its source code).
+
+(doom! :input
+       ;;chinese
+       ;;japanese
+       ;;layout            ; auie,ctsrnm is the superior home row
+
+       :completion
+       company           ; the ultimate code completion backend
+       ;(helm +fuzzy)              ; the *other* search engine for love and life
+       ;;ido               ; the other *other* search engine...
+       ivy               ; a search engine for love and life
+
+       :ui
+       ;;deft              ; notational velocity for Emacs
+       doom              ; what makes DOOM look the way it does
+       doom-dashboard    ; a nifty splash screen for Emacs
+       ;;doom-quit         ; DOOM quit-message prompts when you quit Emacs
+       ;;(emoji +unicode)  ; 🙂
+       ;;fill-column       ; a `fill-column' indicator
+       hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+       ;;hydra
+       ;;indent-guides     ; highlighted indent columns
+       (ligatures +extra)  ; ligatures and symbols to make your code pretty again
+       ;;minimap           ; show a map of the code on the side
+       modeline          ; snazzy, Atom-inspired modeline, plus API
+       ;;nav-flash         ; blink cursor line after big motions
+       neotree             ; a project drawer, like NERDTree for vim
+       ophints           ; highlight the region an operation acts on
+       (popup +defaults)   ; tame sudden yet inevitable temporary windows
+       ;;tabs              ; a tab bar for Emacs
+       ;;treemacs          ; a project drawer, like neotree but cooler
+       ;;unicode           ; extended unicode support for various languages
+       vc-gutter         ; vcs diff in the fringe
+       vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+       ;;window-select     ; visually switch windows
+       workspaces        ; tab emulation, persistence & separate workspaces
+       zen               ; distraction-free coding or writing
+
+       :editor
+       (evil +everywhere); come to the dark side, we have cookies
+       file-templates    ; auto-snippets for empty files
+       fold              ; (nigh) universal code folding
+       ;;(format +onsave)  ; automated prettiness
+       ;;god               ; run Emacs commands without modifier keys
+       ;;lispy             ; vim for lisp, for people who don't like vim
+       ;;multiple-cursors  ; editing in many places at once
+       ;;objed             ; text object editing for the innocent
+       ;;parinfer          ; turn lisp into python, sort of
+       ;;rotate-text       ; cycle region at point between text candidates
+       snippets          ; my elves. They type so I don't have to
+       ;;word-wrap         ; soft wrapping with language-aware indent
+
+       :emacs
+       dired             ; making dired pretty [functional]
+       electric          ; smarter, keyword-based electric-indent
+       ;;ibuffer         ; interactive buffer management
+       (undo +tree)      ; persistent, smarter undo for your inevitable mistakes
+       vc                ; version-control and Emacs, sitting in a tree
+
+       :term
+       ;;eshell            ; the elisp shell that works everywhere
+       ;;shell             ; simple shell REPL for Emacs
+       ;;term              ; basic terminal emulator for Emacs
+       ;;vterm             ; the best terminal emulation in Emacs
+
+       :checkers
+       syntax              ; tasing you for every semicolon you forget
+       (spell +flyspell) ; tasing you for misspelling mispelling
+       ;;grammar           ; tasing grammar mistake every you make
+
+       :tools
+       ;;ansible
+       debugger          ; FIXME stepping through code, to help you add bugs
+       ;;direnv
+       ;;docker
+       ;;editorconfig      ; let someone else argue about tabs vs spaces
+       ;;ein               ; tame Jupyter notebooks with emacs
+       (eval +overlay)     ; run code, run (also, repls)
+       gist              ; interacting with github gists
+       lookup              ; navigate your code and its documentation
+       lsp
+       (magit +forge)             ; a git porcelain for Emacs
+       ;;make              ; run make tasks from Emacs
+       ;;pass              ; password manager for nerds
+       pdf               ; pdf enhancements
+       ;;prodigy           ; FIXME managing external services & code builders
+       ;;rgb               ; creating color strings
+       ;;taskrunner        ; taskrunner for all your projects
+       ;;terraform         ; infrastructure as code
+       ;;tmux              ; an API for interacting with tmux
+       ;;upload            ; map local to remote projects via ssh/ftp
+
+       :os
+       (:if IS-MAC macos)  ; improve compatibility with macOS
+       ;;tty               ; improve the terminal Emacs experience
+
+       :lang
+       ;;agda              ; types of types of types of types...
+       ;;cc                ; C/C++/Obj-C madness
+       ;;clojure           ; java with a lisp
+       ;;common-lisp       ; if you've seen one lisp, you've seen them all
+       ;;coq               ; proofs-as-programs
+       ;;crystal           ; ruby at the speed of c
+       ;;csharp            ; unity, .NET, and mono shenanigans
+       ;;data              ; config/data formats
+       ;;(dart +flutter)   ; paint ui and not much else
+       ;;elixir            ; erlang done right
+       ;;elm               ; care for a cup of TEA?
+       emacs-lisp        ; drown in parentheses
+       ;;erlang            ; an elegant language for a more civilized age
+       ;;ess               ; emacs speaks statistics
+       ;;faust             ; dsp, but you get to keep your soul
+       ;;fsharp            ; ML stands for Microsoft's Language
+       ;;fstar             ; (dependent) types and (monadic) effects and Z3
+       ;;gdscript          ; the language you waited for
+       ;;(go +lsp)         ; the hipster dialect
+       ;;(haskell +dante)  ; a language that's lazier than I am
+       ;;hy                ; readability of scheme w/ speed of python
+       ;;idris             ; a language you can depend on
+       ;;json              ; At least it ain't XML
+       ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
+       ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       julia             ; a better, faster MATLAB
+       ;;kotlin            ; a better, slicker Java(Script)
+       latex             ; writing papers in Emacs has never been so fun
+       ;;lean
+       ;;factor
+       ;;ledger            ; an accounting system in Emacs
+       ;;lua               ; one-based indices? one-based indices
+       markdown          ; writing docs for people to ignore
+       ;;nim               ; python + lisp at the speed of c
+       ;;nix               ; I hereby declare "nix geht mehr!"
+       ;;ocaml             ; an objective camel
+       (org +jupyter +pretty +roam +pandoc +present)               ; organize your plain life in plain text
+       ;;php               ; perl's insecure younger brother
+       ;;plantuml          ; diagrams for confusing people more
+       ;;purescript        ; javascript, but functional
+       python            ; beautiful is better than ugly
+       ;;qt                ; the 'cutest' gui framework ever
+       ;;racket            ; a DSL for DSLs
+       ;;raku              ; the artist formerly known as perl6
+       ;;rest              ; Emacs as a REST client
+       ;;rst               ; ReST in peace
+       ;;(ruby +rails)     ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
+       ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
+       ;;scala             ; java, but good
+       ;;scheme            ; a fully conniving family of lisps
+       sh                ; she sells {ba,z,fi}sh shells on the C xor
+       ;;sml
+       ;;solidity          ; do you need a blockchain? No.
+       ;;swift             ; who asked for emoji variables?
+       ;;terra             ; Earth and Moon in alignment for performance.
+       ;;web               ; the tubes
+       ;;yaml              ; JSON, but readable
+
+       :email
+       ;;(mu4e +gmail)
+       ;;notmuch
+       ;;(wanderlust +gmail)
+
+       :app
+       ;;calendar
+       ;;emms
+       ;;everywhere        ; *leave* Emacs!? You must be joking
+       ;;irc               ; how neckbeards socialize
+       ;;(rss +org)        ; emacs as an RSS reader
+       ;;twitter           ; twitter client https://twitter.com/vnought
+
+       :config
+       ;;literate
+       (default +bindings +smartparens))
+#+end_src
+
+#+RESULTS:
+
+* General configuration
+** Basic info
+Set default user information:
+#+begin_src emacs-lisp :tangle config.el
+(setq user-full-name "Gary Baker"
+      user-mail-address "gary.baker@wisc.edu")
+#+end_src
+
+** Theme
+Use the default doom theme and fonts
+#+begin_src emacs-lisp :tangle config.el
+(setq doom-theme 'doom-one)
+#+end_src
+
+Use line numbering by default
+#+begin_src emacs-lisp :tangle config.el
+(setq display-line-numbers-type t)
+#+end_src
+
+** Technical stuff
+By default, emacs deletes files permanently. Use the system trash instead:
+#+begin_src emacs-lisp :tangle config.el
+(setq-default delete-by-moving-to-trash t)
+#+end_src
+
+In order for emacs to use gpg and ssh keys (say, for git operations), we need to whitelist the ~SSH_AUTH_SOCKS~ and ~SSH_AUTH_PID~ variables.
+#+begin_src emacs-lisp :tangle config.el
+(when noninteractive
+  (add-to-list 'doom-env-whitelist "^SSH_"))
+#+end_src
+
+** Global keybindings
+*** Top level
+I use undo-tree-visualize a lot. Rebind it to the main SPC menu:
+#+begin_src emacs-lisp :tangle config.el
+(map! :leader
+      :desc "Undo tree" "U" #'undo-tree-visualize)
+#+end_src
+
+*** Code
+Add a keybinding for commenting lines/regions
+#+begin_src emacs-lisp :tangle config.el
+(map! :leader
+      (:prefix ("c" . "code")
+      :desc "Comment line/region" ";" #'comment-line)
+      )
+#+end_src
+
+** Searching
+I'm not fan of the Vim-style :%s find and replace. Map the default ~query-replace~ and ~query-replace-regexp~ to bindings under the "search" prefix.
+#+begin_src emacs-lisp :tangle config.el
+(map! :leader
+      (:prefix ("s" . "search")
+       :desc "Query replace" "r" #'query-replace
+       :desc "Regexp query replace" "R" #'query-replace-regexp))
+#+end_src
+
+* Org setup
+** General formatting
+** Citation management
+Use ~ivy-bibtex~ for inserting citations. I don't quite get how the ~map!~ macro is supposed to work. For some reason, anything mapped under ~:leader~ seems to always map globally, ignoring the specified keymap. Using ~general~'s default binding command doesn't have this issue.
+#+begin_src emacs-lisp :tangle config.el
+;; (map! :map (evil-org-mode-map)
+;;       (:leader
+;;        :desc "Ivy Bibtex" :ni "]" #'ivy-bibtex))
+(general-define-key
+ :states '(normal insert)
+ :keymaps 'org-mode-map
+ :prefix "SPC"
+ :non-normal-prefix "M-SPC"
+ "]" 'ivy-bibtex)
+#+end_src
+
+
+** Org-roam
+We will use org-roam for building a zettelkasten note-taking. First ensure the necessary packages are installed.
+#+begin_src emacs-lisp :tangle packages.el
+;;(package! org-roam)
+(package! org-roam-bibtex)  ;; Use org-roam for paper notes
+#+end_src
+Then configure things. The following block sets the default directory for roam notes and the default note style.
+#+begin_src emacs-lisp :tangle config.el
+(after! org-roam
+  (setq org-roam-directory "/home/gbaker/Dropbox/Documents/working/roam/")
+  (setq org-roam-capture-templates '(("d" "default" plain (function org-roam-capture--get-point) "%?" :file-name "${slug}" :head "#+title: ${title}\n" :unnarrowed t)))
+)
+
+(use-package! org-roam-bibtex
+  :after org-roam
+  :hook (org-roam-mode . org-roam-bibtex-mode)
+  :custom
+  (orb-templates
+   '(("r" "ref" plain #'org-roam-capture--get-point "" :file-name "${citekey}" :head "#+title: ${title}\n#+roam_alias: ${citekey}\n#+roam_key: ${ref}\n"
+      :unnarrowed t))))
+#+end_src
+
+We can then replace the default org-capture keybinding with an org-roam-capture keybinding.
+#+begin_src emacs-lisp :tangle config.el
+(map! :leader
+      :desc "New Org-Roam note" "X" #'org-roam-capture)
+#+end_src
+    
+** Org-download
+Org-download allows clipping screenshots and inserting into buffers (among other things). It could have been installed with the ~+dragndrop~ plugin for the ~org~ module, but that didn't work right for me. (screenshots didn't seem to work right.) Instead, we can just manually install and configure it.
+#+begin_src emacs-lisp :tangle packages.el
+(package! org-download)
+#+end_src
+#+begin_src emacs-lisp :tangle config.el
+(use-package! org-download
+  :after org
+  :custom
+  (org-download-image-dir "images")
+  :config
+  (map! :map org-mode-map
+        :leader
+        :localleader
+        (:prefix ("a" . "attachments")
+         "c" #'org-download-screenshot))
+  )
+#+end_src
+
+* LaTeX setup
+** Basic formatting
+There's currently a bug (see [[https://github.com/hlissner/doom-emacs/issues/4798][this issue]]) that prevents LaTeX commands under the usual ~SPC m~ prefix. Here we'll recreate some commonly used formatting commands so as to avoid uncomfortable combos like ~C-c C-f C-i~.
+
+First define the necessary functions for the keybindings.
+#+BEGIN_SRC emacs-lisp :tangle config.el
+(defun TeX-italic()
+  (interactive)
+  (TeX-font nil ?\C-i))
+
+(defun TeX-typewriter()
+  (interactive)
+  (TeX-font nil ?\C-t))
+
+(defun TeX-bold()
+  (interactive)
+  (TeX-font nil ?\C-b))
+
+(defun TeX-smallcaps()
+  (interactive)
+  (TeX-font nil ?\C-c))
+#+END_SRC
+Now map those under a font prefix. NOTE, there seems be some sort of bug arising from the multiple aliases of ~latex-mode~ for auctex. For example, keybindings mapped to the ~latex-mode-map~ don't seem to end up properly mapped for some reason, but their descriptions for ~which-key~ are stored properly. Conversely, commands mapped to ~LaTeX-mode-map~ get mapped correctly, but the descriptions don't work. BUT, if the command is mapped to both, everything seems to work...
+#+begin_src emacs-lisp :tangle config.el
+(map! :map latex-mode-map
+      ;; :leader
+      :localleader
+      (:prefix ("f" . "Font faces")
+      :desc "Italic" "i" #'TeX-italic
+      :desc "Monospace" "t" #'TeX-typewriter
+      :desc "Bold" "b" #'TeX-bold
+      :desc "Smallcaps" "c" #'TeX-smallcaps))
+(map! :map LaTeX-mode-map
+      ;; :leader
+      :localleader
+      (:prefix ("f" . "Font faces")
+      :desc "Italic" "i" #'TeX-italic
+      :desc "Monospace" "t" #'TeX-typewriter
+      :desc "Bold" "b" #'TeX-bold
+      :desc "Smallcaps" "c" #'TeX-smallcaps))
+#+end_src
+
+** Environments
+Define some keybindings for inserting and changing environments. (This stuff I think should be handled by ~evil-tex~, but that package seems to do nothing right now...)
+
+First define a function that changes the current LaTeX environment by calling
+the ~LaTeX-environment~ command with the universal argument.
+
+#+begin_src emacs-lisp :tangle config.el
+(defun LaTeX-change-environment ()
+  (interactive)
+  (LaTeX-environment 1))
+#+end_src
+
+Now map that command, along with the default environment command.
+#+begin_src emacs-lisp :tangle config.el
+(map! :map latex-mode-map
+      :localleader
+      (:prefix ("e" . "Environments")
+       :desc "Insert environment" "e" #'LaTeX-environment
+       :desc "Change environment" "u" #'LaTeX-change-environment
+       :desc "Toggle starred environment" "*" #'evil-tex-toggle-env))
+(map! :map LaTeX-mode-map
+      :localleader
+      (:prefix ("e" . "Environments")
+       :desc "Insert environment" "e" #'LaTeX-environment
+       :desc "Change environment" "u" #'LaTeX-change-environment
+       :desc "Toggle starred environment" "*" #'evil-tex-toggle-env))
+#+end_src
+
+** Compiling and viewing
+Map the compile and view commands under the top level local leader. (For some reason, descriptions do nothing. The view command has a description that is defined in the ~LaTeX~ module, though that keybinding doesn't appear unless defined here too. Keymapping in general seems borked.)
+#+begin_src emacs-lisp :tangle config.el
+(map! :map latex-mode-map
+      :localleader
+      :desc "Compile" "c" #'TeX-command-master
+      :desc "View" "v" #'TeX-view
+      :desc "Next error" "'" #'TeX-next-error
+      :desc "Show log" "l" #'TeX-recenter-output-buffer
+      )
+(map! :map LaTeX-mode-map
+      :localleader
+      :desc "Compile" "c" #'TeX-command-master
+      :desc "View" "v" #'TeX-view
+      :desc "Next error" "'" #'TeX-next-error
+      :desc "Show log" "l" #'TeX-recenter-output-buffer
+      )
+#+end_src
+
+** Auto-fill
+By default I prefer to have latex documents auto-fill at the character limit (default is 80 in doom).
+#+begin_src emacs-lisp :tangle config.el
+(add-hook! LaTeX-mode #'auto-fill-mode)
+#+end_src
+
+** PDF viewer
+By default, the view command uses one of a few different options for pdf viewers. We want it to default to pdf-tools within emacs.
+#+begin_src emacs-lisp :tangle config.el
+(setq +latex-viewers '(pdf-tools))
+#+end_src
+*** BUG: if tex-view doesn't open in separate pane
+For some reason, on update/rebuild, if you ~pdf-tools-install~ before calling ~TeX-view~, pdfs will get opened in the /current/ window instead of opening a new window to the side. If this occurs, update/rebuild doom, then call ~TeX-view~ from a tex file. This should run the ~pdf-tools-install~ command. After that, things should work.
+
+Seems like running ~doom sync~ can also fix the issue? Not really sure what exactly triggers it...
+
+** Citation management
+Just as with ~org-mode~, we'll use ~ivy-bibtex~ for inserting citations
+#+begin_src emacs-lisp :tangle config.el
+;; (add-hook! LaTeX-mode
+;;   (map! :leader
+;;         :desc "Ivy Bibtex" "]" #'ivy-bibtex))
+(general-define-key
+ :states '(normal insert)
+ :keymaps 'LaTeX-mode-map
+ :prefix "SPC"
+ :non-normal-prefix "M-SPC"
+ "]" 'ivy-bibtex)
+#+end_src
+
+** Tips to remember
+I'm coming from regular emacs where (with electric-pair mode), typing an opening delimeter with an active region would surround that region with the delimiters. With evil-mode, this can be accomplished in the visual state with ~S-char~ (using the ~evil-surround~ mode in doom by default.)
+
+With emacs, this would also work in math mode if the inserted delimiter was preceded by \left, auto inserting a matching \right. I st
+* Citation management
+We can use ivy-bibtex for searching through a bib file, inserting citations, and (with org-roam) taking notes on papers. (ivy-bibtex could have been installed with the ~biblio~ module in the ~init.el~ file, but it's just easier for me to set my own defaults.)
+
+First make sure ivy-bibtex is installed
+#+begin_src emacs-lisp :tangle packages.el
+(package! ivy-bibtex)
+;;(package! org-ref)
+#+end_src
+
+Then we can configure it:
+#+begin_src emacs-lisp :tangle config.el
+(use-package! ivy-bibtex
+  :defer t
+  :custom
+  (bibtex-completion-bibliography
+        '("~/Dropbox/Documents/working/library.bib"))
+  (bibtex-completion-library-path
+   '("~/Dropbox/Documents/working/papers"))
+  (bibtex-completion-format-citation-functions
+   '((org-mode      . bibtex-completion-format-citation-org-link-to-PDF)
+     (latex-mode    . bibtex-completion-format-citation-cite)
+     )
+   )
+  )
+#+end_src
+
+By default, ~ivy-bibtex~ opens the pdf file on <RET>. Change this to "insert citation" instead.
+#+begin_src emacs-lisp :tangle config.el
+(setq ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
+#+end_src
+
+* PDF viewing
+For some reason some of the keybindings for ~pdf-tools~ get overloaded. I assume there's some issue with evil loading after pdf-tools and overloading the ~s~ prefix that ~pdf-tools~ uses for the various slicing commands for the usual evil snipe command. The only slice command I ever use is ~pdf-view-set-slice-from-bounding-box~ to cut margins off the document, so just bind that to something...
+#+begin_src emacs-lisp :tangle config.el
+(map! :map pdf-view-mode-map
+      :leader
+      :localleader
+      "s" #'pdf-view-set-slice-from-bounding-box)
+#+end_src

@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: beamer-new-frame
+# key: ?nf
+# --
+\begin{frame}
+  \frametitle{$1}
+
+  $2
+
+  \note{%
+
+  }
+\end{frame}
