@@ -250,6 +250,20 @@ Add a keybinding for commenting lines/regions
       )
 #+end_src
 
+*** Window navigation
+Add a function and keybinding that both closes a window and kills the buffer it was displaying.
+#+begin_src emacs-lisp :tangle config.el
+(defun close-and-kill-this-pane ()
+  "If there are multiple windows, then close this pane and kill the buffer in it also."
+  (interactive)
+  (kill-this-buffer)
+  (if (not (one-window-p))
+      (delete-window)))
+(map! :leader
+      (:prefix ("w" . "window")
+       :desc "Close window and kill buffer" "D" #'close-and-kill-this-pane))
+#+end_src
+
 ** Searching
 I'm not fan of the Vim-style :%s find and replace. Map the default ~query-replace~ and ~query-replace-regexp~ to bindings under the "search" prefix.
 #+begin_src emacs-lisp :tangle config.el
