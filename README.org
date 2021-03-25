@@ -16,7 +16,6 @@ Upon editing, simply run (in normal model, hit return):
 (org-babel-tangle)
 (doom/reload)
 #+end_src
-
 * Init setup
 The following controls the enabled modules, their plugins, and the order in which they're loaded.
 This is more or less the default file, with some small modifications.
@@ -264,6 +263,9 @@ Add a function and keybinding that both closes a window and kills the buffer it 
        :desc "Close window and kill buffer" "D" #'close-and-kill-this-pane))
 #+end_src
 
+*** Editing
+The defaul
+
 ** Searching
 I'm not fan of the Vim-style :%s find and replace. Map the default ~query-replace~ and ~query-replace-regexp~ to bindings under the "search" prefix.
 #+begin_src emacs-lisp :tangle config.el
@@ -274,12 +276,12 @@ I'm not fan of the Vim-style :%s find and replace. Map the default ~query-replac
 #+end_src
 
 * Org setup
-** Todo [0/4]
+** Todo [1/4]
 - [ ] Formatting commands
   - Bold, italic, underline
 - [ ] Add new snippets
   - SRC block snippets for config
-- [ ] ~helm-bibtex~ insert citation does nothing in org. I thought it worked before, and I'm not sure what changed, but it works in LaTeX, so fixing it isn't high priority...
+- [X] ~helm-bibtex~ insert citation does nothing in org. I thought it worked before, and I'm not sure what changed, but it works in LaTeX, so fixing it isn't high priority...
 - [ ] Config for ~org-jupyter~
   - Not sure what is needed (if anything) until I try some old org files...
 
@@ -291,6 +293,20 @@ Use visual-fill-column for org. This keeps text width more manageable without ac
 
 ** General formatting
 ** Citation management
+Let ~org-ref~ handle formatting citations.
+#+begin_src emacs-lisp :tangle packages.el
+(package! org-ref)
+#+end_src
+~org-ref~ will format citations, and link properly to the bib entry if it's pointed at the bib file and pdf directory.
+#+begin_src emacs-lisp :tangle config.el
+(use-package! org-ref
+  :after helm-bibtex
+  :custom
+  (org-ref-default-bibliography '("~/Dropbox/Documents/working/library.bib"))
+  (org-ref-pdf-directory "~/Dropbox/Documents/working/papers/")
+  )
+#+end_src
+
 Use ~helm-bibtex~ for inserting citations. I don't quite get how the ~map!~ macro is supposed to work. For some reason, anything mapped under ~:leader~ seems to always map globally, ignoring the specified keymap. Using ~general~'s default binding command doesn't have this issue.
 #+begin_src emacs-lisp :tangle config.el
 (general-define-key
@@ -427,6 +443,11 @@ Now map that command, along with the default environment command.
 #+end_src
 
 ** Compiling and viewing
+I use the XeTeX engine by default for compiling. Set it as such:
+#+begin_src emacs-lisp :tangle config.el
+(setq-default TeX-engine 'xetex)
+#+end_src
+
 Map the compile and view commands under the top level local leader. (For some reason, descriptions do nothing. The view command has a description that is defined in the ~LaTeX~ module, though that keybinding doesn't appear unless defined here too. Keymapping in general seems borked.)
 #+begin_src emacs-lisp :tangle config.el
 (map! :map latex-mode-map
@@ -472,7 +493,6 @@ I use helm-bibtex for searching through a bib file, inserting citations, and (wi
 First make sure helm-bibtex is installed
 #+begin_src emacs-lisp :tangle packages.el
 (package! helm-bibtex)
-(package! org-ref)
 #+end_src
 
 Then configure it:
@@ -484,21 +504,7 @@ Then configure it:
         '("~/Dropbox/Documents/working/library.bib"))
   (bibtex-completion-library-path
    '("~/Dropbox/Documents/working/papers"))
-  (bibtex-completion-format-citation-functions
-   '((org-mode      . bibtex-completion-format-citation-org-link-to-PDF)
-     (latex-mode    . bibtex-completion-format-citation-cite)
-     )
-   )
   )
-#+end_src
-
-By default, ~helm-bibtex~ opens the pdf file on <RET>. Change this to "insert citation" instead.
-#+begin_src emacs-lisp :tangle config.el
-;; (setq helm-bibtex-default-action 'helm-bibtex-insert-citation)
-(after! helm-bibtex
-  (helm-delete-action-from-source "Insert citation" helm-source-bibtex)
-  (helm-add-action-to-source "Insert citation" 'bibtex-completion-insert-citation helm-source-bibtex 0)
- )
 #+end_src
 
 * PDF viewing
