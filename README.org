@@ -263,9 +263,6 @@ Add a function and keybinding that both closes a window and kills the buffer it 
        :desc "Close window and kill buffer" "D" #'close-and-kill-this-pane))
 #+end_src
 
-*** Editing
-The defaul
-
 ** Searching
 I'm not fan of the Vim-style :%s find and replace. Map the default ~query-replace~ and ~query-replace-regexp~ to bindings under the "search" prefix.
 #+begin_src emacs-lisp :tangle config.el
