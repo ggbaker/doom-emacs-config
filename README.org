@@ -16,6 +16,7 @@ Upon editing, simply run (in normal model, hit return):
 (org-babel-tangle)
 (doom/reload)
 #+end_src
+
 * Init setup
 The following controls the enabled modules, their plugins, and the order in which they're loaded.
 This is more or less the default file, with some small modifications.
@@ -294,6 +295,7 @@ Let ~org-ref~ handle formatting citations.
 #+begin_src emacs-lisp :tangle packages.el
 (package! org-ref)
 #+end_src
+
 ~org-ref~ will format citations, and link properly to the bib entry if it's pointed at the bib file and pdf directory.
 #+begin_src emacs-lisp :tangle config.el
 (use-package! org-ref
@@ -312,6 +314,12 @@ Use ~helm-bibtex~ for inserting citations. I don't quite get how the ~map!~ macr
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
  "]" 'helm-bibtex)
+#+end_src
+
+** Org-capture
+Set the default org directory:
+#+begin_src emacs-lisp :tangle config.el
+(setq org-directory "~/Dropbox/Documents/working/org")
 #+end_src
 
 ** Org-roam
@@ -336,21 +344,15 @@ Then configure things. The following block sets the default directory for roam n
       :unnarrowed t))))
 #+end_src
 
-I only ever use Roam's capture function, so replace the default org-capture keybinding with an org-roam-capture keybinding.
-#+begin_src emacs-lisp :tangle config.el
-(map! :leader
-      :desc "New Org-Roam note" "X" #'org-roam-capture)
-#+end_src
-
 Add some extra keybindings under the roam menu. In particular, the command to toggle the backlinks display, and the command to open the index file.
 #+begin_src emacs-lisp :tangle config.el
-(map! :map org-mode-map
-      :localleader
-      (:prefix ("m" . "org-roam")
+(map! :leader
+      (:prefix ("n" . "notes")
+       (:prefix ("r" . "roam")
        :desc "Roam index" "RET" #'org-roam-jump-to-index
        :desc "Toggle Roam display" "'" #'org-roam-buffer-toggle-display))
+      )
 #+end_src
-
 
 ** Org-download
 Org-download allows clipping screenshots and inserting into buffers (among other things). It could have been installed with the ~+dragndrop~ plugin for the ~org~ module, but that didn't work right for me. (screenshots didn't seem to work right.) Instead, just manually install and configure it.
