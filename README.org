@@ -31,7 +31,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
 
        :completion
        company           ; the ultimate code completion backend
-       (helm +fuzzy)               ; the *other* search engine for love and life
+       (helm)               ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;; ivy               ; a search engine for love and life
 
@@ -212,7 +212,7 @@ Set default user information:
 ** Theme and buffer appearance
 Use the default doom theme and fonts
 #+begin_src emacs-lisp :tangle config.el
-(setq doom-theme 'doom-vibrant)
+(setq doom-theme 'doom-gruvbox)
 #+end_src
 
 Use line numbering by default
@@ -341,7 +341,17 @@ I only ever use Roam's capture function, so replace the default org-capture keyb
 (map! :leader
       :desc "New Org-Roam note" "X" #'org-roam-capture)
 #+end_src
-    
+
+Add some extra keybindings under the roam menu. In particular, the command to toggle the backlinks display, and the command to open the index file.
+#+begin_src emacs-lisp :tangle config.el
+(map! :map org-mode-map
+      :localleader
+      (:prefix ("m" . "org-roam")
+       :desc "Roam index" "RET" #'org-roam-jump-to-index
+       :desc "Toggle Roam display" "'" #'org-roam-buffer-toggle-display))
+#+end_src
+
+
 ** Org-download
 Org-download allows clipping screenshots and inserting into buffers (among other things). It could have been installed with the ~+dragndrop~ plugin for the ~org~ module, but that didn't work right for me. (screenshots didn't seem to work right.) Instead, just manually install and configure it.
 #+begin_src emacs-lisp :tangle packages.el
@@ -354,7 +364,6 @@ Org-download allows clipping screenshots and inserting into buffers (among other
   (org-download-image-dir "images")
   :config
   (map! :map org-mode-map
-        :leader
         :localleader
         (:prefix ("a" . "attachments")
          "c" #'org-download-screenshot))
@@ -362,6 +371,8 @@ Org-download allows clipping screenshots and inserting into buffers (among other
 #+end_src
 
 * LaTeX setup
+** Todo [0/1]
+- [ ] ~evil-surround~ (~S char~) adds extra spaces when insterting parentheses, brackets, or braces. I'm not a fan...
 ** Buffer appearance
 As with org, use visual-fill-column for LaTeX to manage column widths without actually breaking lines.
 #+begin_src emacs-lisp :tangle config.el
