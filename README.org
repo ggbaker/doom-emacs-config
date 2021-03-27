@@ -323,7 +323,7 @@ Set the default org directory:
 #+end_src
 
 ** Org-roam
-I use org-roam for building a zettelkasten note-taking. First ensure the necessary packages are installed.
+I use org-roam for building a zettelkasten note-taking. First ensure the necessary packages are installed. NOTE: sql is required. Might need to install ~sqlite3~ with an ~apt get~.
 #+begin_src emacs-lisp :tangle packages.el
 ;;(package! org-roam)
 (package! org-roam-bibtex)  ;; Use org-roam for paper notes
@@ -331,7 +331,7 @@ I use org-roam for building a zettelkasten note-taking. First ensure the necessa
 Then configure things. The following block sets the default directory for roam notes and the default note style.
 #+begin_src emacs-lisp :tangle config.el
 (after! org-roam
-  (setq org-roam-directory "/home/gbaker/Dropbox/Documents/working/roam/")
+  (setq org-roam-directory "~/Dropbox/Documents/working/roam/")
   (setq org-roam-capture-templates '(("d" "default" plain (function org-roam-capture--get-point) "%?" :file-name "${slug}" :head "#+title: ${title}\n" :unnarrowed t)))
 )
 
