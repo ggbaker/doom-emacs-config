@@ -1,7 +1,5 @@
 :DOC-CONFIG:
-# Tangle code to config.el unless otherwise specified
-#+property: header-args:emacs-lisp :tangle config.el :results silent
-#+property: header-args :mkdirp yes :comments no
+#+property: header-args :emacs-lisp :tangle config.el :results silent
 #+startup: fold
 :END:
 
