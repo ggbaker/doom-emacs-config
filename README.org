@@ -213,7 +213,7 @@ Set default user information:
 ** Theme and buffer appearance
 Use the default doom theme and fonts
 #+begin_src emacs-lisp :tangle config.el
-(setq doom-theme 'doom-gruvbox)
+(setq doom-theme 'doom-nord)
 #+end_src
 
 Use line numbering by default
