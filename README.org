@@ -15,6 +15,11 @@ Upon editing, simply run (in normal model, hit return):
 (doom/reload)
 #+end_src
 
+NOTE: If you've compiled the commands with ~doom compile~, you'll need to run the following for config updates to take effect.
+#+begin_src bash
+~/.emacs.d/bin/doom clean
+#+end_src
+
 * Init setup
 The following controls the enabled modules, their plugins, and the order in which they're loaded.
 This is more or less the default file, with some small modifications.
