@@ -225,6 +225,30 @@ I like to keep text columns to under 80 characters long. In code buffers, I use 
 (setq visual-fill-column-width 85)
 #+end_src
 
+*** Dashboard
+I prefer a slightly simpler splash banner on the dashboard. Redefine the function that draws new banner.
+#+begin_src emacs-lisp :tangle config.el
+(defun doom-dashboard-draw-ascii-banner-fn ()
+  (let* ((banner
+          '("     _/\\/\\/\\/\\/\\/\\____/\\/\\______/\\/\\________/\\/\\__________/\\/\\/\\/\\/\\______/\\/\\/\\/\\/\\_"
+            "    _/\\______________/\\/\\/\\__/\\/\\/\\______/\\/\\/\\/\\______/\\/\\____________/\\/\\_________ "
+            "   _/\\/\\/\\/\\/\\______/\\/\\/\\/\\/\\/\\/\\____/\\/\\____/\\/\\____/\\/\\______________/\\/\\/\\/\\___  "
+            "  _/\\/\\____________/\\/\\__/\\__/\\/\\____/\\/\\/\\/\\/\\/\\____/\\/\\____________________/\\/\\_   "
+            " _/\\/\\/\\/\\/\\/\\____/\\/\\______/\\/\\____/\\/\\____/\\/\\______/\\/\\/\\/\\/\\____/\\/\\/\\/\\/\\___    "
+            "________________________________________________________________________________     "))
+         (longest-line (apply #'max (mapcar #'length banner))))
+    (put-text-property
+     (point)
+     (dolist (line banner (point))
+       (insert (+doom-dashboard--center
+                +doom-dashboard--width
+                (concat
+                 line (make-string (max 0 (- longest-line (length line)))
+                                   32)))
+               "\n"))
+     'face 'doom-dashboard-banner)))
+#+end_src
+
 ** Technical stuff
 By default, emacs deletes files permanently. Use the system trash instead:
 #+begin_src emacs-lisp :tangle config.el

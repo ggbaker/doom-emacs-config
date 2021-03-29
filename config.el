@@ -8,6 +8,26 @@
 (setq fill-column 79)
 (setq visual-fill-column-width 85)
 
+(defun doom-dashboard-draw-ascii-banner-fn ()
+  (let* ((banner
+          '("     _/\\/\\/\\/\\/\\/\\____/\\/\\______/\\/\\________/\\/\\__________/\\/\\/\\/\\/\\______/\\/\\/\\/\\/\\_"
+            "    _/\\______________/\\/\\/\\__/\\/\\/\\______/\\/\\/\\/\\______/\\/\\____________/\\/\\_________ "
+            "   _/\\/\\/\\/\\/\\______/\\/\\/\\/\\/\\/\\/\\____/\\/\\____/\\/\\____/\\/\\______________/\\/\\/\\/\\___  "
+            "  _/\\/\\____________/\\/\\__/\\__/\\/\\____/\\/\\/\\/\\/\\/\\____/\\/\\____________________/\\/\\_   "
+            " _/\\/\\/\\/\\/\\/\\____/\\/\\______/\\/\\____/\\/\\____/\\/\\______/\\/\\/\\/\\/\\____/\\/\\/\\/\\/\\___    "
+            "________________________________________________________________________________     "))
+         (longest-line (apply #'max (mapcar #'length banner))))
+    (put-text-property
+     (point)
+     (dolist (line banner (point))
+       (insert (+doom-dashboard--center
+                +doom-dashboard--width
+                (concat
+                 line (make-string (max 0 (- longest-line (length line)))
+                                   32)))
+               "\n"))
+     'face 'doom-dashboard-banner)))
+
 (setq-default delete-by-moving-to-trash t)
 
 (map! :leader
