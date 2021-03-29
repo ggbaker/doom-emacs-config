@@ -1,3 +1,5 @@
+~/.emacs.d/bin/doom clean
+
 (setq user-full-name "Gary Baker"
       user-mail-address "gary.baker@wisc.edu")
 
