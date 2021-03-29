@@ -484,18 +484,37 @@ Map the compile and view commands under the top level local leader. (For some re
 #+begin_src emacs-lisp :tangle config.el
 (map! :map latex-mode-map
       :localleader
-      :desc "Compile" "c" #'TeX-command-master
+      :desc "Compile" "c" #'TeX-command-run-all
+      :desc "Compile command" "C" #'TeX-command-master
       :desc "View" "v" #'TeX-view
       :desc "Next error" "'" #'TeX-next-error
       :desc "Show log" "l" #'TeX-recenter-output-buffer
       )
 (map! :map LaTeX-mode-map
       :localleader
-      :desc "Compile" "c" #'TeX-command-master
+      :desc "Compile" "c" #'TeX-command-run-all
+      :desc "Compile" "C" #'TeX-command-master
       :desc "View" "v" #'TeX-view
       :desc "Next error" "'" #'TeX-next-error
       :desc "Show log" "l" #'TeX-recenter-output-buffer
       )
+#+end_src
+
+By default, ~TeX-command-run-all~ will open the pdf after compiling. In the terminal, this just opens a window with gibberish raw pdf. To stop this, I define a new option in the ~TeX-command-list~ that does nothing but print that the compilation is finished. I then set ~TeX-command-Show~---the option to run when AUCTeX thinks the pdf is ready---to this dummy option. I'm happy to call the view command manually when I need it.
+#+begin_src emacs-lisp :tangle config.el
+;; First create a command that does nothing in the LaTeX command list
+(after! latex
+  ;; Function to display a message when compilation is done
+  (defun TeX-view-message (a b c)
+    (message "Compilation finished"))
+  (setq TeX-command-list (append TeX-command-list
+                                 '(("Do nothing" "" TeX-view-message))))
+  )
+;; The following needs to be set separately for some reason
+;; I assume this again has something to do with the many mode names of AUCTeX
+(add-hook! 'LaTeX-mode-hook
+  (setq TeX-command-Show "Do nothing")
+  )
 #+end_src
 
 ** PDF viewer
@@ -503,10 +522,6 @@ By default, the view command uses one of a few different options for pdf viewers
 #+begin_src emacs-lisp :tangle config.el
 (setq +latex-viewers '(pdf-tools))
 #+end_src
-*** BUG: if tex-view doesn't open in separate pane
-For some reason, on update/rebuild, if you ~pdf-tools-install~ before calling ~TeX-view~, pdfs will get opened in the /current/ window instead of opening a new window to the side. If this occurs, update/rebuild doom, then call ~TeX-view~ from a tex file. This should run the ~pdf-tools-install~ command. After that, things should work.
-
-Seems like running ~doom sync~ can also fix the issue? Not really sure what exactly triggers it...
 
 ** Citation management
 Just as with ~org-mode~, we'll use ~helm-bibtex~ for inserting citations

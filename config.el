@@ -158,18 +158,34 @@
 
 (map! :map latex-mode-map
       :localleader
-      :desc "Compile" "c" #'TeX-command-master
+      :desc "Compile" "c" #'TeX-command-run-all
+      :desc "Compile command" "C" #'TeX-command-master
       :desc "View" "v" #'TeX-view
       :desc "Next error" "'" #'TeX-next-error
       :desc "Show log" "l" #'TeX-recenter-output-buffer
       )
 (map! :map LaTeX-mode-map
       :localleader
-      :desc "Compile" "c" #'TeX-command-master
+      :desc "Compile" "c" #'TeX-command-run-all
+      :desc "Compile" "C" #'TeX-command-master
       :desc "View" "v" #'TeX-view
       :desc "Next error" "'" #'TeX-next-error
       :desc "Show log" "l" #'TeX-recenter-output-buffer
       )
+
+;; First create a command that does nothing in the LaTeX command list
+(after! latex
+  ;; Function to display a message when compilation is done
+  (defun TeX-view-message (a b c)
+    (message "Compilation finished"))
+  (setq TeX-command-list (append TeX-command-list
+                                 '(("Do nothing" "" TeX-view-message))))
+  )
+;; The following needs to be set separately for some reason
+;; I assume this again has something to do with the many mode names of AUCTeX
+(add-hook! 'LaTeX-mode-hook
+  (setq TeX-command-Show "Do nothing")
+  )
 
 (setq +latex-viewers '(pdf-tools))
 
