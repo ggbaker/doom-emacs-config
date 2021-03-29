@@ -195,8 +195,6 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        (default +bindings +smartparens))
 #+end_src
 
-#+RESULTS:
-
 * General configuration
 ** Todo [0/1]
 - [ ] Push to git with gpg ssh key on yubikey doesn't work.
