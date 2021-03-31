@@ -55,6 +55,8 @@
 
 (add-hook! org-mode #'visual-fill-column-mode)
 
+(add-hook! org-mode #'org-superstar-mode)
+
 (use-package! org-ref
   :after helm-bibtex
   :custom
@@ -173,21 +175,9 @@
       :desc "Show log" "l" #'TeX-recenter-output-buffer
       )
 
-;; First create a command that does nothing in the LaTeX command list
-(after! latex
-  ;; Function to display a message when compilation is done
-  (defun TeX-view-message (a b c)
-    (message "Compilation finished"))
-  (setq TeX-command-list (append TeX-command-list
-                                 '(("Do nothing" "" TeX-view-message))))
+(when window-system
+  (setq +latex-viewers '(pdf-tools))
   )
-;; The following needs to be set separately for some reason
-;; I assume this again has something to do with the many mode names of AUCTeX
-(add-hook! 'LaTeX-mode-hook
-  (setq TeX-command-Show "Do nothing")
-  )
-
-(setq +latex-viewers '(pdf-tools))
 
 (general-define-key
  :states '(normal insert)

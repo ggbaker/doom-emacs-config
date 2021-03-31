@@ -34,41 +34,41 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       company           ; the ultimate code completion backend
-       helm               ; the *other* search engine for love and life
+       company             ; the ultimate code completion backend
+       helm                ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;;ivy               ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
-       doom              ; what makes DOOM look the way it does
-       doom-dashboard    ; a nifty splash screen for Emacs
+       doom                ; what makes DOOM look the way it does
+       doom-dashboard      ; a nifty splash screen for Emacs
        ;;doom-quit         ; DOOM quit-message prompts when you quit Emacs
        ;;(emoji +unicode)  ; 🙂
        ;;fill-column       ; a `fill-column' indicator
-       hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
+       hl-todo             ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
-       ;;indent-guides     ; highlighted indent columns
+       indent-guides     ; highlighted indent columns
        (ligatures +extra)  ; ligatures and symbols to make your code pretty again
        ;;minimap           ; show a map of the code on the side
-       modeline          ; snazzy, Atom-inspired modeline, plus API
+       modeline            ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
        neotree             ; a project drawer, like NERDTree for vim
-       ophints           ; highlight the region an operation acts on
+       ophints             ; highlight the region an operation acts on
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
        ;;tabs              ; a tab bar for Emacs
        ;;treemacs          ; a project drawer, like neotree but cooler
        ;;unicode           ; extended unicode support for various languages
-       vc-gutter         ; vcs diff in the fringe
-       vi-tilde-fringe   ; fringe tildes to mark beyond EOB
+       vc-gutter           ; vcs diff in the fringe
+       ;;vi-tilde-fringe     ; fringe tildes to mark beyond EOB
        ;;window-select     ; visually switch windows
-       workspaces        ; tab emulation, persistence & separate workspaces
-       zen               ; distraction-free coding or writing
+       ;;workspaces          ; tab emulation, persistence & separate workspaces
+       ;;zen                 ; distraction-free coding or writing
 
        :editor
-       (evil +everywhere); come to the dark side, we have cookies
-       file-templates    ; auto-snippets for empty files
-       fold              ; (nigh) universal code folding
+       (evil +everywhere)  ; come to the dark side, we have cookies
+       file-templates      ; auto-snippets for empty files
+       fold                ; (nigh) universal code folding
        ;;(format +onsave)  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
@@ -76,7 +76,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        ;;objed             ; text object editing for the innocent
        ;;parinfer          ; turn lisp into python, sort of
        ;;rotate-text       ; cycle region at point between text candidates
-       snippets          ; my elves. They type so I don't have to
+       snippets            ; my elves. They type so I don't have to
        ;;word-wrap         ; soft wrapping with language-aware indent
 
        :emacs
@@ -94,24 +94,24 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       (spell +flyspell) ; tasing you for misspelling mispelling
+       (spell +flyspell)   ; tasing you for misspelling mispelling
        ;;grammar           ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
-       debugger          ; FIXME stepping through code, to help you add bugs
+       debugger            ; FIXME stepping through code, to help you add bugs
        ;;direnv
        ;;docker
        ;;editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)     ; run code, run (also, repls)
-       gist              ; interacting with github gists
+       gist                ; interacting with github gists
        lookup              ; navigate your code and its documentation
        lsp
        (magit +forge)             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
-       pdf               ; pdf enhancements
+       pdf                 ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        ;;rgb               ; creating color strings
        ;;taskrunner        ; taskrunner for all your projects
@@ -135,7 +135,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        ;;(dart +flutter)   ; paint ui and not much else
        ;;elixir            ; erlang done right
        ;;elm               ; care for a cup of TEA?
-       emacs-lisp        ; drown in parentheses
+       emacs-lisp          ; drown in parentheses
        ;;erlang            ; an elegant language for a more civilized age
        ;;ess               ; emacs speaks statistics
        ;;faust             ; dsp, but you get to keep your soul
@@ -149,22 +149,22 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        ;;json              ; At least it ain't XML
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
-       julia             ; a better, faster MATLAB
+       julia               ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
-       latex             ; writing papers in Emacs has never been so fun
+       latex               ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
        ;;ledger            ; an accounting system in Emacs
        ;;lua               ; one-based indices? one-based indices
-       markdown          ; writing docs for people to ignore
+       markdown            ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +jupyter +pretty +roam +pandoc +present)               ; organize your plain life in plain text
+       (org +jupyter +roam +pandoc +present) ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
-       python            ; beautiful is better than ugly
+       python              ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        ;;raku              ; the artist formerly known as perl6
@@ -174,7 +174,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        ;;rust              ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;scheme            ; a fully conniving family of lisps
-       sh                ; she sells {ba,z,fi}sh shells on the C xor
+       sh                  ; she sells {ba,z,fi}sh shells on the C xor
        ;;sml
        ;;solidity          ; do you need a blockchain? No.
        ;;swift             ; who asked for emoji variables?
@@ -223,6 +223,10 @@ Use line numbering by default
 #+end_src
 
 I like to keep text columns to under 80 characters long. In code buffers, I use ~auto-fill~, and in prose buffers I use  ~visual-fill-column~. Set the max column width here. (~visual-fill-column~ uses the ~fill-column~ parameter by default, but for some reason seems to fill to 5 less. So I set the ~visual-fill-column-width~ parameter separately to correct for this.)
+#+begin_src emacs-lisp :tangle packages.el
+(package! visual-fill-column)
+#+end_src
+
 #+begin_src emacs-lisp :tangle config.el
 (setq fill-column 79)
 (setq visual-fill-column-width 85)
@@ -309,9 +313,20 @@ I'm not fan of the Vim-style :%s find and replace. Map the default ~query-replac
   - Not sure what is needed (if anything) until I try some old org files...
 
 ** Buffer appearance
+*** Text width
 Use visual-fill-column for org. This keeps text width more manageable without actually imposing line breaks.
 #+begin_src emacs-lisp :tangle config.el
 (add-hook! org-mode #'visual-fill-column-mode)
+#+end_src
+
+*** Fancy bullets
+Load ~org-superstar~ for nicer bullets. This could have been loaded with the =+pretty= plugin for the =org= module. Unfortunately, that sometimes gives an error on first file load for some files (particularly this file). I have no idea why this error occurs, but loading things manually fixes it.
+#+begin_src emacs-lisp :tangle packages.el
+(package! org-superstar)
+#+end_src
+
+#+begin_src emacs-lisp :tangle config.el
+(add-hook! org-mode #'org-superstar-mode)
 #+end_src
 
 ** General formatting
@@ -503,27 +518,12 @@ Map the compile and view commands under the top level local leader. (For some re
       )
 #+end_src
 
-By default, ~TeX-command-run-all~ will open the pdf after compiling. In the terminal, this just opens a window with gibberish raw pdf. To stop this, I define a new option in the ~TeX-command-list~ that does nothing but print that the compilation is finished. I then set ~TeX-command-Show~---the option to run when AUCTeX thinks the pdf is ready---to this dummy option. I'm happy to call the view command manually when I need it.
-#+begin_src emacs-lisp :tangle config.el
-;; First create a command that does nothing in the LaTeX command list
-(after! latex
-  ;; Function to display a message when compilation is done
-  (defun TeX-view-message (a b c)
-    (message "Compilation finished"))
-  (setq TeX-command-list (append TeX-command-list
-                                 '(("Do nothing" "" TeX-view-message))))
-  )
-;; The following needs to be set separately for some reason
-;; I assume this again has something to do with the many mode names of AUCTeX
-(add-hook! 'LaTeX-mode-hook
-  (setq TeX-command-Show "Do nothing")
-  )
-#+end_src
-
 ** PDF viewer
-By default, the view command uses one of a few different options for pdf viewers. I want it to default to pdf-tools within emacs.
+When using emacs in a graphical environment, I prefer to view tex output pdfs right in emacs with ~pdf-tools~. I don't want this in terminals, since the ~pdf-tools~ buffer would just display gibberish. The following code accomplishes this. (When using emacs in a terminal emulator within a graphical environment, ~TeX-view~ will call a graphical pdf reader; in a non-graphical environment, it will do nothing.)
 #+begin_src emacs-lisp :tangle config.el
-(setq +latex-viewers '(pdf-tools))
+(when window-system
+  (setq +latex-viewers '(pdf-tools))
+  )
 #+end_src
 
 ** Citation management
