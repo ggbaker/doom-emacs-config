@@ -151,7 +151,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
        julia               ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
-       latex               ; writing papers in Emacs has never been so fun
+       (latex +lsp)        ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
        ;;ledger            ; an accounting system in Emacs
@@ -464,7 +464,7 @@ Now map those under a font prefix. This is where we run into the issue with ~AUC
       :desc "Smallcaps" "c" #'TeX-smallcaps))
 #+end_src
 
-** Environments
+** Inserting environments
 Define some keybindings for inserting and changing environments. (This stuff I think should be handled by ~evil-tex~, but that package seems to do nothing right now...)
 
 First define a function that changes the current LaTeX environment by calling
@@ -535,6 +535,14 @@ Just as with ~org-mode~, we'll use ~helm-bibtex~ for inserting citations
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
  "]" 'helm-bibtex)
+#+end_src
+
+** Company backend fix
+The company autocomplete backends seem to get loaded in the wrong order and overwritten or something (see [[https://github.com/hlissner/doom-emacs/issues/4118#issue-725339932][this issue]]). Load them /after/ reftex to fix this.
+#+begin_src emacs-lisp :tangle config.el
+(add-hook! reftex-mode
+  (add-to-list 'company-backends 'company-reftex-labels)
+  (add-to-list 'company-backends 'company-reftex-citations))
 #+end_src
 
 * Citation management

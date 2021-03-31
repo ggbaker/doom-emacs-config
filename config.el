@@ -186,6 +186,10 @@
  :non-normal-prefix "M-SPC"
  "]" 'helm-bibtex)
 
+(add-hook! reftex-mode
+  (add-to-list 'company-backends 'company-reftex-labels)
+  (add-to-list 'company-backends 'company-reftex-citations))
+
 (use-package! helm-bibtex
   :defer t
   :custom
