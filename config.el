@@ -1,7 +1,7 @@
 (setq user-full-name "Gary Baker"
       user-mail-address "gary.baker@wisc.edu")
 
-(setq doom-theme 'doom-nord)
+(setq doom-theme 'doom-oceanic-next)
 
 (setq display-line-numbers-type t)
 

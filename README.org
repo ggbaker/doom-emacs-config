@@ -62,7 +62,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        vc-gutter           ; vcs diff in the fringe
        ;;vi-tilde-fringe     ; fringe tildes to mark beyond EOB
        ;;window-select     ; visually switch windows
-       ;;workspaces          ; tab emulation, persistence & separate workspaces
+       workspaces          ; tab emulation, persistence & separate workspaces
        ;;zen                 ; distraction-free coding or writing
 
        :editor
@@ -214,7 +214,7 @@ Set default user information:
 ** Theme and buffer appearance
 Use the default doom theme and fonts
 #+begin_src emacs-lisp :tangle config.el
-(setq doom-theme 'doom-nord)
+(setq doom-theme 'doom-oceanic-next)
 #+end_src
 
 Use line numbering by default
