@@ -413,8 +413,6 @@ Org-download allows clipping screenshots and inserting into buffers (among other
 #+end_src
 
 * LaTeX setup
-** Todo [0/1]
-- [ ] ~evil-surround~ (~S char~) adds extra spaces when insterting parentheses, brackets, or braces. I'm not a fan...
 ** Buffer appearance
 As with org, use visual-fill-column for LaTeX to manage column widths without actually breaking lines.
 #+begin_src emacs-lisp :tangle config.el
