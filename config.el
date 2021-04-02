@@ -1,7 +1,7 @@
 (setq user-full-name "Gary Baker"
       user-mail-address "gary.baker@wisc.edu")
 
-(setq doom-theme 'doom-oceanic-next)
+(setq doom-theme 'doom-palenight)
 
 (setq display-line-numbers-type t)
 
@@ -175,9 +175,12 @@
       :desc "Show log" "l" #'TeX-recenter-output-buffer
       )
 
-(when window-system
-  (setq +latex-viewers '(pdf-tools))
-  )
+(setq +latex-viewers '(pdf-tools))
+(when (not window-system)
+  (setq +latex-viewers '())
+  (add-hook! LaTeX-mode
+    (setq TeX-view-program-selection (remove '(output-pdf "Evince") TeX-view-program-selection))
+    (setq TeX-view-program-selection (remove '(output-pdf "preview-pane") TeX-view-program-selection))))
 
 (general-define-key
  :states '(normal insert)
