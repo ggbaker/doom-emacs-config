@@ -20,34 +20,6 @@ NOTE: If you've compiled the commands with ~doom compile~, you'll need to run th
 ~/.emacs.d/bin/doom clean
 #+end_src
 
-* Table of Contents
-- [[#init-setup][Init setup]]
-- [[#general-configuration][General configuration]]
-  - [[#todo][Todo]]
-  - [[#basic-info][Basic info]]
-  - [[#theme-and-buffer-appearance][Theme and buffer appearance]]
-  - [[#technical-stuff][Technical stuff]]
-  - [[#global-keybindings][Global keybindings]]
-  - [[#searching][Searching]]
-- [[#org-setup][Org setup]]
-  - [[#todo-1][Todo]]
-  - [[#buffer-appearance][Buffer appearance]]
-  - [[#general-formatting][General formatting]]
-  - [[#citation-management][Citation management]]
-  - [[#org-capture][Org-capture]]
-  - [[#org-roam][Org-roam]]
-  - [[#org-download][Org-download]]
-- [[#latex-setup][LaTeX setup]]
-  - [[#buffer-appearance-1][Buffer appearance]]
-  - [[#basic-formatting][Basic formatting]]
-  - [[#inserting-environments][Inserting environments]]
-  - [[#compiling-and-viewing][Compiling and viewing]]
-  - [[#pdf-viewer][PDF viewer]]
-  - [[#citation-management-1][Citation management]]
-  - [[#company-backend-fix][Company backend fix]]
-- [[#citation-management-2][Citation management]]
-- [[#pdf-viewing][PDF viewing]]
-
 
 * Init setup
 The following controls the enabled modules, their plugins, and the order in which they're loaded.
@@ -64,7 +36,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
 
        :completion
        company             ; the ultimate code completion backend
-       helm                ; the *other* search engine for love and life
+       (helm +fuzzy)       ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;;ivy               ; a search engine for love and life
 
