@@ -104,6 +104,10 @@
          "c" #'org-download-screenshot))
   )
 
+(map! :map org-mode-map
+      :localleader
+      :desc "Toggle LaTeX fragments" "v" #'org-latex-preview)
+
 (add-hook! LaTeX-mode #'visual-fill-column-mode)
 
 (defun TeX-italic()

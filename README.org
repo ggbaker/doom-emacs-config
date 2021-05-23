@@ -413,6 +413,14 @@ Org-download allows clipping screenshots and inserting into buffers (among other
   )
 #+end_src
 
+** Latex inline
+The default keybinding for ~org-latex-preview~ is the usual emacs style (~C-c C-x C-l~). The following adds a more convenient binding under org's localleader:
+#+begin_src emacs-lisp :tanlge config.el
+(map! :map org-mode-map
+      :localleader
+      :desc "Toggle LaTeX fragments" "v" #'org-latex-preview)
+#+end_src
+
 * LaTeX setup
 ** Buffer appearance
 As with org, use visual-fill-column for LaTeX to manage column widths without actually breaking lines.
