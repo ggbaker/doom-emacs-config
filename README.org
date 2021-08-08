@@ -119,6 +119,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
+       biblio
 
        :os
        (:if IS-MAC macos)  ; improve compatibility with macOS
@@ -161,7 +162,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +jupyter +roam +pandoc +present) ; organize your plain life in plain text
+       (org +jupyter +roam2 +pandoc +present) ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
@@ -303,6 +304,19 @@ I'm not fan of the Vim-style :%s find and replace. Map the default ~query-replac
        :desc "Regexp query replace" "R" #'query-replace-regexp))
 #+end_src
 
+* Citation management
+I use helm-bibtex for searching through a bib file, inserting citations, and (with org-roam) taking notes on papers.
+
+These packages are installed by the ~biblio~ module in the init section.
+The following sets the default bibliography file and where the pdfs are stored.
+
+#+begin_src emacs-lisp :tangle config.el
+(setq bibtex-completion-bibliography
+      '("~/Dropbox/Documents/working/library.bib"))
+(setq bibtex-completion-library-path
+      '("~/Dropbox/Documents/working/papers"))
+#+end_src
+
 * Org setup
 ** Todo
 - [ ] Formatting commands
@@ -331,10 +345,53 @@ Load ~org-superstar~ for nicer bullets. This could have been loaded with the =+p
 #+end_src
 
 ** General formatting
-** Citation management
+*** Org-capture
+Set the default org directory:
+#+begin_src emacs-lisp :tangle config.el
+(setq org-directory "~/Dropbox/Documents/working/org")
+#+end_src
+
+** Org-roam and citations
+I use org-roam for building a zettelkasten note-taking. First ensure the necessary packages are installed. NOTE: sql is required. Might need to install ~sqlite3~ with an ~apt get~.
+#+begin_src emacs-lisp :tangle packages.el
+;;(package! org-roam)
+(package! org-roam-bibtex)  ;; Use org-roam for paper notes
+(package! org-ref)          ;; org-ref handles bibtex in org
+#+end_src
+
+Then configure things. The following block sets the default directory for roam notes and the default note style.
+#+begin_src emacs-lisp :tangle config.el
+(after! org-roam
+  (setq org-roam-directory "~/Dropbox/Documents/working/roam/")
+)
+
+(use-package! org-roam-bibtex
+  :after org-roam
+  :hook (org-roam-mode . org-roam-bibtex-mode)
+  :config
+  (require 'org-ref)
+  ;; :custom
+  ;; (orb-templates
+  ;;  '(("r" "ref" plain #'org-roam-capture--get-point "" :file-name "${citekey}" :head "#+title: ${title}\n#+roam_alias: ${citekey}\n#+roam_key: ${ref}\n"
+  ;;     :unnarrowed t)))
+  ;; (org-roam-capture-templates
+  ;;  '(("r" "ref" plain #'org-roam-capture--get-point "" :file-name "${citekey}" :head "#+title: ${title}\n#+roam_alias: ${citekey}\n#+roam_key: ${ref}\n"
+  ;;      :unnarrowed t)))
+  )
+#+end_src
+
+Add some extra keybindings under the roam menu. In particular, the command to toggle the backlinks display, and the command to open the index file.
+#+begin_src emacs-lisp :tangle config.el
+(map! :leader
+      (:prefix ("n" . "notes")
+       (:prefix ("r" . "roam")
+       :desc "Toggle Roam display" "'" #'org-roam-buffer-toggle-display))
+      )
+#+end_src
+
 Let ~org-ref~ handle formatting citations.
 #+begin_src emacs-lisp :tangle packages.el
-(package! org-ref)
+;; (package! org-ref)
 #+end_src
 
 ~org-ref~ will format citations, and link properly to the bib entry if it's pointed at the bib file and pdf directory.
@@ -355,44 +412,6 @@ Use ~helm-bibtex~ for inserting citations. I don't quite get how the ~map!~ macr
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
  "]" 'helm-bibtex)
-#+end_src
-
-** Org-capture
-Set the default org directory:
-#+begin_src emacs-lisp :tangle config.el
-(setq org-directory "~/Dropbox/Documents/working/org")
-#+end_src
-
-** Org-roam
-I use org-roam for building a zettelkasten note-taking. First ensure the necessary packages are installed. NOTE: sql is required. Might need to install ~sqlite3~ with an ~apt get~.
-#+begin_src emacs-lisp :tangle packages.el
-;;(package! org-roam)
-(package! org-roam-bibtex)  ;; Use org-roam for paper notes
-#+end_src
-Then configure things. The following block sets the default directory for roam notes and the default note style.
-#+begin_src emacs-lisp :tangle config.el
-(after! org-roam
-  (setq org-roam-directory "~/Dropbox/Documents/working/roam/")
-  (setq org-roam-capture-templates '(("d" "default" plain (function org-roam-capture--get-point) "%?" :file-name "${slug}" :head "#+title: ${title}\n" :unnarrowed t)))
-)
-
-(use-package! org-roam-bibtex
-  :after org-roam
-  :hook (org-roam-mode . org-roam-bibtex-mode)
-  :custom
-  (orb-templates
-   '(("r" "ref" plain #'org-roam-capture--get-point "" :file-name "${citekey}" :head "#+title: ${title}\n#+roam_alias: ${citekey}\n#+roam_key: ${ref}\n"
-      :unnarrowed t))))
-#+end_src
-
-Add some extra keybindings under the roam menu. In particular, the command to toggle the backlinks display, and the command to open the index file.
-#+begin_src emacs-lisp :tangle config.el
-(map! :leader
-      (:prefix ("n" . "notes")
-       (:prefix ("r" . "roam")
-       :desc "Roam index" "RET" #'org-roam-jump-to-index
-       :desc "Toggle Roam display" "'" #'org-roam-buffer-toggle-display))
-      )
 #+end_src
 
 ** Org-download
@@ -553,26 +572,6 @@ The company autocomplete backends seem to get loaded in the wrong order and over
 (add-hook! reftex-mode
   (add-to-list 'company-backends 'company-reftex-labels)
   (add-to-list 'company-backends 'company-reftex-citations))
-#+end_src
-
-* Citation management
-I use helm-bibtex for searching through a bib file, inserting citations, and (with org-roam) taking notes on papers. (helm-bibtex could have been installed with the ~biblio~ module in the ~init.el~ file, but it's just easier for me to set my own defaults.)
-
-First make sure helm-bibtex is installed
-#+begin_src emacs-lisp :tangle packages.el
-(package! helm-bibtex)
-#+end_src
-
-Then configure it:
-#+begin_src emacs-lisp :tangle config.el
-(use-package! helm-bibtex
-  :defer t
-  :custom
-  (bibtex-completion-bibliography
-        '("~/Dropbox/Documents/working/library.bib"))
-  (bibtex-completion-library-path
-   '("~/Dropbox/Documents/working/papers"))
-  )
 #+end_src
 
 * PDF viewing

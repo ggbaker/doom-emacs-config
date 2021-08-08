@@ -53,9 +53,40 @@
        :desc "Query replace" "r" #'query-replace
        :desc "Regexp query replace" "R" #'query-replace-regexp))
 
+(setq bibtex-completion-bibliography
+      '("~/Dropbox/Documents/working/library.bib"))
+(setq bibtex-completion-library-path
+      '("~/Dropbox/Documents/working/papers"))
+
 (add-hook! org-mode #'visual-fill-column-mode)
 
 (add-hook! org-mode #'org-superstar-mode)
+
+(setq org-directory "~/Dropbox/Documents/working/org")
+
+(after! org-roam
+  (setq org-roam-directory "~/Dropbox/Documents/working/roam/")
+)
+
+(use-package! org-roam-bibtex
+  :after org-roam
+  :hook (org-roam-mode . org-roam-bibtex-mode)
+  :config
+  (require 'org-ref)
+  ;; :custom
+  ;; (orb-templates
+  ;;  '(("r" "ref" plain #'org-roam-capture--get-point "" :file-name "${citekey}" :head "#+title: ${title}\n#+roam_alias: ${citekey}\n#+roam_key: ${ref}\n"
+  ;;     :unnarrowed t)))
+  ;; (org-roam-capture-templates
+  ;;  '(("r" "ref" plain #'org-roam-capture--get-point "" :file-name "${citekey}" :head "#+title: ${title}\n#+roam_alias: ${citekey}\n#+roam_key: ${ref}\n"
+  ;;      :unnarrowed t)))
+  )
+
+(map! :leader
+      (:prefix ("n" . "notes")
+       (:prefix ("r" . "roam")
+       :desc "Toggle Roam display" "'" #'org-roam-buffer-toggle-display))
+      )
 
 (use-package! org-ref
   :after helm-bibtex
@@ -70,28 +101,6 @@
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
  "]" 'helm-bibtex)
-
-(setq org-directory "~/Dropbox/Documents/working/org")
-
-(after! org-roam
-  (setq org-roam-directory "~/Dropbox/Documents/working/roam/")
-  (setq org-roam-capture-templates '(("d" "default" plain (function org-roam-capture--get-point) "%?" :file-name "${slug}" :head "#+title: ${title}\n" :unnarrowed t)))
-)
-
-(use-package! org-roam-bibtex
-  :after org-roam
-  :hook (org-roam-mode . org-roam-bibtex-mode)
-  :custom
-  (orb-templates
-   '(("r" "ref" plain #'org-roam-capture--get-point "" :file-name "${citekey}" :head "#+title: ${title}\n#+roam_alias: ${citekey}\n#+roam_key: ${ref}\n"
-      :unnarrowed t))))
-
-(map! :leader
-      (:prefix ("n" . "notes")
-       (:prefix ("r" . "roam")
-       :desc "Roam index" "RET" #'org-roam-jump-to-index
-       :desc "Toggle Roam display" "'" #'org-roam-buffer-toggle-display))
-      )
 
 (use-package! org-download
   :after org
@@ -196,15 +205,6 @@
 (add-hook! reftex-mode
   (add-to-list 'company-backends 'company-reftex-labels)
   (add-to-list 'company-backends 'company-reftex-citations))
-
-(use-package! helm-bibtex
-  :defer t
-  :custom
-  (bibtex-completion-bibliography
-        '("~/Dropbox/Documents/working/library.bib"))
-  (bibtex-completion-library-path
-   '("~/Dropbox/Documents/working/papers"))
-  )
 
 (map! :map pdf-view-mode-map
       :leader
