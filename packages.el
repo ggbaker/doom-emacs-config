@@ -6,6 +6,4 @@
 (package! org-roam-bibtex)  ;; Use org-roam for paper notes
 (package! org-ref)          ;; org-ref handles bibtex in org
 
-;; (package! org-ref)
-
 (package! org-download)

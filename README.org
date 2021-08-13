@@ -389,11 +389,6 @@ Add some extra keybindings under the roam menu. In particular, the command to to
       )
 #+end_src
 
-Let ~org-ref~ handle formatting citations.
-#+begin_src emacs-lisp :tangle packages.el
-;; (package! org-ref)
-#+end_src
-
 ~org-ref~ will format citations, and link properly to the bib entry if it's pointed at the bib file and pdf directory.
 #+begin_src emacs-lisp :tangle config.el
 (use-package! org-ref
@@ -402,6 +397,20 @@ Let ~org-ref~ handle formatting citations.
   (org-ref-default-bibliography '("~/Dropbox/Documents/working/library.bib"))
   (org-ref-pdf-directory "~/Dropbox/Documents/working/papers/")
   )
+#+end_src
+
+Set a template for literature notes.
+#+begin_src emacs-lisp :tangle config.el
+(setq org-roam-capture-templates
+      '(;; default template
+        ("d" "default" plain "%?" :if-new
+         (file+head "%<%Y%m%d>-${slug}.org" "#+title: ${title}\n")
+         :unnarrowed t)
+        ;; bibliography note template
+        ("r" "bibliography reference" plain "%?"
+        :if-new
+        (file+head "${citekey}.org" "#+title: (${citekey}) ${title}\n")
+        :unnarrowed t)))
 #+end_src
 
 Use ~helm-bibtex~ for inserting citations. I don't quite get how the ~map!~ macro is supposed to work. For some reason, anything mapped under ~:leader~ seems to always map globally, ignoring the specified keymap. Using ~general~'s default binding command doesn't have this issue.

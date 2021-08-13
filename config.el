@@ -95,6 +95,17 @@
   (org-ref-pdf-directory "~/Dropbox/Documents/working/papers/")
   )
 
+(setq org-roam-capture-templates
+      '(;; default template
+        ("d" "default" plain "%?" :if-new
+         (file+head "%<%Y%m%d>-${slug}.org" "#+title: ${title}\n")
+         :unnarrowed t)
+        ;; bibliography note template
+        ("r" "bibliography reference" plain "%?"
+        :if-new
+        (file+head "${citekey}.org" "#+title: (${citekey}) ${title}\n")
+        :unnarrowed t)))
+
 (general-define-key
  :states '(normal insert)
  :keymaps 'org-mode-map
