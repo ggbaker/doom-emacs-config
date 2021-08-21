@@ -219,6 +219,14 @@ Use the default doom theme and fonts
 (setq doom-theme 'doom-palenight)
 #+end_src
 
+Set the default font and size:
+#+begin_src emacs-lisp :tangle config.el
+(setq doom-font (font-spec
+                 :family "Hack Nerd Font"
+                 :size 13
+                 :weight 'light))
+#+end_src
+
 Use line numbering by default
 #+begin_src emacs-lisp :tangle config.el
 (setq display-line-numbers-type t)

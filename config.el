@@ -3,6 +3,11 @@
 
 (setq doom-theme 'doom-palenight)
 
+(setq doom-font (font-spec
+                 :family "Hack Nerd Font"
+                 :size 13
+                 :weight 'light))
+
 (setq display-line-numbers-type t)
 
 (setq fill-column 79)
