@@ -58,6 +58,8 @@
 (setq bibtex-completion-library-path
       '("~/Dropbox/Documents/working/papers"))
 
+(setq  ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
+
 (add-hook! org-mode #'visual-fill-column-mode)
 
 (add-hook! org-mode #'org-superstar-mode)
@@ -89,7 +91,7 @@
       )
 
 (use-package! org-ref
-  :after helm-bibtex
+  :after ivy-bibtex
   :custom
   (org-ref-default-bibliography '("~/Dropbox/Documents/working/library.bib"))
   (org-ref-pdf-directory "~/Dropbox/Documents/working/papers/")
@@ -111,7 +113,7 @@
  :keymaps 'org-mode-map
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
- "]" 'helm-bibtex)
+ "]" 'ivy-bibtex)
 
 (use-package! org-download
   :after org
@@ -211,7 +213,7 @@
  :keymaps 'LaTeX-mode-map
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
- "]" 'helm-bibtex)
+ "]" 'ivy-bibtex)
 
 (add-hook! reftex-mode
   (add-to-list 'company-backends 'company-reftex-labels)

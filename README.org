@@ -36,9 +36,9 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
 
        :completion
        company             ; the ultimate code completion backend
-       (helm +fuzzy)       ; the *other* search engine for love and life
+       ;; (helm +fuzzy)       ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ;;ivy               ; a search engine for love and life
+       ivy               ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -69,7 +69,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        :editor
        (evil +everywhere)  ; come to the dark side, we have cookies
        file-templates      ; auto-snippets for empty files
-       fold                ; (nigh) universal code folding
+       ;; fold                ; (nigh) universal code folding
        ;;(format +onsave)  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
@@ -108,7 +108,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        (eval +overlay)     ; run code, run (also, repls)
        gist                ; interacting with github gists
        lookup              ; navigate your code and its documentation
-       lsp
+       ;; lsp
        (magit +forge)             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -153,7 +153,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
        julia               ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
-       latex        ; writing papers in Emacs has never been so fun
+       latex               ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
        ;;ledger            ; an accounting system in Emacs
@@ -305,7 +305,7 @@ I'm not fan of the Vim-style :%s find and replace. Map the default ~query-replac
 #+end_src
 
 * Citation management
-I use helm-bibtex for searching through a bib file, inserting citations, and (with org-roam) taking notes on papers.
+I use ivy-bibtex for searching through a bib file, inserting citations, and (with org-roam) taking notes on papers.
 
 These packages are installed by the ~biblio~ module in the init section.
 The following sets the default bibliography file and where the pdfs are stored.
@@ -317,13 +317,19 @@ The following sets the default bibliography file and where the pdfs are stored.
       '("~/Dropbox/Documents/working/papers"))
 #+end_src
 
+By default, ~ivy-bibtex~ opens the pdf of a citation. Usually, I want to insert a citation.
+Set the default action appropriately.
+#+begin_src emacs-lisp :tangle config.el
+(setq  ivy-bibtex-default-action 'ivy-bibtex-insert-citation)
+#+end_src
+
 * Org setup
 ** Todo
 - [ ] Formatting commands
   - Bold, italic, underline
 - [ ] Add new snippets
   - SRC block snippets for config
-- [X] ~helm-bibtex~ insert citation does nothing in org. I thought it worked before, and I'm not sure what changed, but it works in LaTeX, so fixing it isn't high priority...
+- [X] ~ivy-bibtex~ insert citation does nothing in org. I thought it worked before, and I'm not sure what changed, but it works in LaTeX, so fixing it isn't high priority...
 - [ ] Config for ~org-jupyter~
   - Not sure what is needed (if anything) until I try some old org files...
 
@@ -392,7 +398,7 @@ Add some extra keybindings under the roam menu. In particular, the command to to
 ~org-ref~ will format citations, and link properly to the bib entry if it's pointed at the bib file and pdf directory.
 #+begin_src emacs-lisp :tangle config.el
 (use-package! org-ref
-  :after helm-bibtex
+  :after ivy-bibtex
   :custom
   (org-ref-default-bibliography '("~/Dropbox/Documents/working/library.bib"))
   (org-ref-pdf-directory "~/Dropbox/Documents/working/papers/")
@@ -413,14 +419,14 @@ Set a template for literature notes.
         :unnarrowed t)))
 #+end_src
 
-Use ~helm-bibtex~ for inserting citations. I don't quite get how the ~map!~ macro is supposed to work. For some reason, anything mapped under ~:leader~ seems to always map globally, ignoring the specified keymap. Using ~general~'s default binding command doesn't have this issue.
+Use ~ivy-bibtex~ for inserting citations. I don't quite get how the ~map!~ macro is supposed to work. For some reason, anything mapped under ~:leader~ seems to always map globally, ignoring the specified keymap. Using ~general~'s default binding command doesn't have this issue.
 #+begin_src emacs-lisp :tangle config.el
 (general-define-key
  :states '(normal insert)
  :keymaps 'org-mode-map
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
- "]" 'helm-bibtex)
+ "]" 'ivy-bibtex)
 #+end_src
 
 ** Org-download
@@ -565,14 +571,14 @@ Use ~pdf-tools~ as the default pdf reader for LaTeX output. In a terminal, disab
 #+end_src
 
 ** Citation management
-Just as with ~org-mode~, we'll use ~helm-bibtex~ for inserting citations
+Just as with ~org-mode~, we'll use ~ivy-bibtex~ for inserting citations
 #+begin_src emacs-lisp :tangle config.el
 (general-define-key
  :states '(normal insert)
  :keymaps 'LaTeX-mode-map
  :prefix "SPC"
  :non-normal-prefix "M-SPC"
- "]" 'helm-bibtex)
+ "]" 'ivy-bibtex)
 #+end_src
 
 ** Company backend fix
