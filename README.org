@@ -199,7 +199,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
 
        :config
        ;;literate
-       (default +bindings +smartparens))
+       (default +bindings))
 #+end_src
 
 * General configuration
@@ -485,6 +485,7 @@ First define the necessary functions for the keybindings.
   (interactive)
   (TeX-font nil ?\C-c))
 #+END_SRC
+
 Now map those under a font prefix. This is where we run into the issue with ~AUCTeX~'s weird mode names bizarre multiple mode aliases (e.g. ~LaTeX-mode~ vs. ~latex-mode~). For example, keybindings mapped to the ~latex-mode-map~ don't seem to end up properly mapped for some reason, but their descriptions for ~which-key~ are stored properly. Conversely, commands mapped to ~LaTeX-mode-map~ get mapped correctly, but the descriptions don't work. BUT, if the command is mapped to both, everything seems to work... See [[https://github.com/hlissner/doom-emacs/issues/4288#issue-746460181][this issue]] for more information.
 #+begin_src emacs-lisp :tangle config.el
 (map! :map latex-mode-map
