@@ -187,6 +187,9 @@
        :desc "Change environment" "u" #'LaTeX-change-environment
        :desc "Toggle starred environment" "*" #'evil-tex-toggle-env))
 
+(map! :map cdlatex-mode-map
+    :i "TAB" #'cdlatex-tab)
+
 (setq-default TeX-engine 'xetex)
 
 (map! :map latex-mode-map
