@@ -7,3 +7,5 @@
 (package! org-ref)          ;; org-ref handles bibtex in org
 
 (package! org-download)
+
+(package! org-reveal)
