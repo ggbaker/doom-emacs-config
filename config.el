@@ -1,7 +1,7 @@
 (setq user-full-name "Gary Baker"
       user-mail-address "gary.baker@wisc.edu")
 
-(setq doom-theme 'doom-palenight)
+(setq doom-theme 'doom-monokai-spectrum)
 
 (setq doom-font (font-spec
                  :family "Hack Nerd Font"
