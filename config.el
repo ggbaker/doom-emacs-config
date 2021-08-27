@@ -39,6 +39,9 @@
       :desc "Undo tree" "U" #'undo-tree-visualize)
 
 (map! :leader
+      :desc "vterm" "v" #'vterm)
+
+(map! :leader
       (:prefix ("c" . "code")
       :desc "Comment line/region" ";" #'comment-line)
       )
