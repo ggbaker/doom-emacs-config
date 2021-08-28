@@ -38,7 +38,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        company             ; the ultimate code completion backend
        ;; (helm +fuzzy)    ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +icons)        ; a search engine for love and life
+       (ivy +icons +fuzzy)        ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -307,15 +307,6 @@ Add a function and keybinding that both closes a window and kills the buffer it 
 (map! :leader
       (:prefix ("w" . "window")
        :desc "Close window and kill buffer" "D" #'close-and-kill-this-pane))
-#+end_src
-
-*** Ivy keybindings
-By default, pressing =RET= in an ivy-minibuffer on a directory opens the directory listing in a new buffer.
-I'd much prefer it to just continue the session in the new directory (by default done with =TAB=).
-Switch these two
-#+begin_src emacs-lisp :tangle config.el
-(define-key ivy-mode-map (kbd "TAB") 'ivy-immediate-done)
-(define-key ivy-mode-map (kbd "RET") 'ivy-alt-done)
 #+end_src
 
 * Citation management

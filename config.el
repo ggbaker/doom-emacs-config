@@ -56,9 +56,6 @@
       (:prefix ("w" . "window")
        :desc "Close window and kill buffer" "D" #'close-and-kill-this-pane))
 
-(define-key ivy-mode-map (kbd "TAB") 'ivy-immediate-done)
-(define-key ivy-mode-map (kbd "RET") 'ivy-alt-done)
-
 (setq bibtex-completion-bibliography
       '("~/Dropbox/Documents/working/library.bib"))
 (setq bibtex-completion-library-path
