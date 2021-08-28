@@ -309,13 +309,13 @@ Add a function and keybinding that both closes a window and kills the buffer it 
        :desc "Close window and kill buffer" "D" #'close-and-kill-this-pane))
 #+end_src
 
-** Searching
-I'm not fan of the Vim-style :%s find and replace. Map the default ~query-replace~ and ~query-replace-regexp~ to bindings under the "search" prefix.
+*** Ivy keybindings
+By default, pressing =RET= in an ivy-minibuffer on a directory opens the directory listing in a new buffer.
+I'd much prefer it to just continue the session in the new directory (by default done with =TAB=).
+Switch these two
 #+begin_src emacs-lisp :tangle config.el
-(map! :leader
-      (:prefix ("s" . "search")
-       :desc "Query replace" "r" #'query-replace
-       :desc "Regexp query replace" "R" #'query-replace-regexp))
+(define-key ivy-mode-map (kbd "TAB") 'ivy-immediate-done)
+(define-key ivy-mode-map (kbd "RET") 'ivy-alt-done)
 #+end_src
 
 * Citation management

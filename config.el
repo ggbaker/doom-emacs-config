@@ -56,10 +56,8 @@
       (:prefix ("w" . "window")
        :desc "Close window and kill buffer" "D" #'close-and-kill-this-pane))
 
-(map! :leader
-      (:prefix ("s" . "search")
-       :desc "Query replace" "r" #'query-replace
-       :desc "Regexp query replace" "R" #'query-replace-regexp))
+(define-key ivy-mode-map (kbd "TAB") 'ivy-immediate-done)
+(define-key ivy-mode-map (kbd "RET") 'ivy-alt-done)
 
 (setq bibtex-completion-bibliography
       '("~/Dropbox/Documents/working/library.bib"))
