@@ -56,6 +56,11 @@
       (:prefix ("w" . "window")
        :desc "Close window and kill buffer" "D" #'close-and-kill-this-pane))
 
+(after! company
+  (define-key company-active-map (kbd "<tab>") nil)
+  (define-key company-active-map (kbd "TAB") nil)
+  )
+
 (setq bibtex-completion-bibliography
       '("~/Dropbox/Documents/working/library.bib"))
 (setq bibtex-completion-library-path

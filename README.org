@@ -38,7 +38,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        company             ; the ultimate code completion backend
        ;; (helm +fuzzy)    ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       (ivy +icons +fuzzy)        ; a search engine for love and life
+       (ivy +icons +prescient)        ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -307,6 +307,17 @@ Add a function and keybinding that both closes a window and kills the buffer it 
 (map! :leader
       (:prefix ("w" . "window")
        :desc "Close window and kill buffer" "D" #'close-and-kill-this-pane))
+#+end_src
+
+*** Autocompletion
+By default, ~company-mode~ uses =TAB= for cycling through suggestions (or selecting if only one).
+I always use =RET= to accept suggestions, and =TAB= sometimes causes conflicts (primarily with ~cdlatex~).
+The following disables =TAB='s usage in company:
+#+begin_src emacs-lisp :tangle config.el
+(after! company
+  (define-key company-active-map (kbd "<tab>") nil)
+  (define-key company-active-map (kbd "TAB") nil)
+  )
 #+end_src
 
 * Citation management
