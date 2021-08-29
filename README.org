@@ -216,7 +216,7 @@ Set default user information:
 ** Theme and buffer appearance
 Use the default doom theme and fonts
 #+begin_src emacs-lisp :tangle config.el
-(setq doom-theme 'doom-monokai-spectrum)
+(setq doom-theme 'doom-molokai)
 #+end_src
 
 Set the default font and size:
