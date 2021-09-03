@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
 # name: reveal-split
-# key: ?split
+# key: split
 # --
 #+REVEAL: split:t

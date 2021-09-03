@@ -1,9 +1,8 @@
 # -*- mode: snippet -*-
 # name: beamer-new-frame
-# key: ?nf
+# key: frame
 # --
-\begin{frame}
-  \frametitle{$1}
+\begin{frame}{$1}
 
   $2
 
