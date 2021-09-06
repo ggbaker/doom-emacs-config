@@ -1,7 +1,22 @@
 (setq user-full-name "Gary Baker"
       user-mail-address "gary.baker@wisc.edu")
 
-(setq doom-theme 'doom-molokai)
+;; Set light and dark themes
+(defvar light-theme 'doom-one-light)
+(defvar dark-theme 'doom-one)
+;; Load default dark theme
+(setq doom-theme dark-theme)
+;; Toggle theme between light and dark
+(defun toggle-dark-theme ()
+  (interactive)
+  (if (eq (car custom-enabled-themes) dark-theme)
+      (load-theme light-theme)
+    (load-theme dark-theme))
+  )
+;; keybinding to toggle theme
+(map! :leader
+      (:prefix ("t" . "toggle")
+       :desc "Toggle dark theme" "t" #'toggle-dark-theme))
 
 (setq doom-font (font-spec
                  :family "Hack Nerd Font"
