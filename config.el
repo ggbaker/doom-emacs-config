@@ -2,8 +2,8 @@
       user-mail-address "gary.baker@wisc.edu")
 
 ;; Set light and dark themes
-(defvar light-theme 'doom-one-light)
-(defvar dark-theme 'doom-one)
+(defvar light-theme 'doom-gruvbox-light)
+(defvar dark-theme 'doom-gruvbox)
 ;; Load default dark theme
 (setq doom-theme dark-theme)
 ;; Toggle theme between light and dark
