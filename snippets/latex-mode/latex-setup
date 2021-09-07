@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: latex-setup
-# key: ?latex-setup
+# key: latex-setup
 # --
 \documentclass{fancyArticle}
 

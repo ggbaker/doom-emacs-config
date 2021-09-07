@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # name: bibliography
-# key: ?bibliography
+# key: bibliography
 # --
 \bibliographystyle{apalike}
 \bibliography{../library}

@@ -10,5 +10,4 @@
 #+LATEX_HEADER: \\usepackage{xcolor} \\usepackage{palatino,eulervm}
 #+LATEX_HEADER: \\usepackage{comment} \\excludecomment{answer}
 #+OPTIONS: toc:nil
-#+STARTUP: latexpreview
 -----
