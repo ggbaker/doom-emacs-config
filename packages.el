@@ -1,5 +1,7 @@
 (package! visual-fill-column)
 
+(package! doom-snippets :ignore t)
+
 (package! org-superstar)
 
 ;;(package! org-roam)

@@ -153,7 +153,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        javascript          ; all(hope(abandon(ye(who(enter(here))))))
        julia               ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
-       (latex +lsp +cdlatex)               ; writing papers in Emacs has never been so fun
+       (latex +lsp +cdlatex) ; writing papers in Emacs has never been so fun
        ;;lean
        ;;factor
        ;;ledger            ; an accounting system in Emacs
@@ -324,10 +324,17 @@ Add a function and keybinding that both closes a window and kills the buffer it 
        :desc "Close window and kill buffer" "D" #'close-and-kill-this-pane))
 #+end_src
 
-*** Autocompletion
-By default, ~company-mode~ uses =TAB= for cycling through suggestions (or selecting if only one).
+** Autocompletion
+
+By default the doom ~snippets~ module provides a whole bunch of snippets that I never use.
+The following disables those snippets:
+#+begin_src emacs-lisp :tangle packages.el
+(package! doom-snippets :ignore t)
+#+end_src
+
+By default,  ~company~ uses =TAB= for cycling through suggestions (or selecting if only one).
 I always use =RET= to accept suggestions, and =TAB= sometimes causes conflicts (primarily with ~cdlatex~).
-The following disables =TAB='s usage in company:
+The following disables =TAB='s usage in ~company~:
 #+begin_src emacs-lisp :tangle config.el
 (after! company
   (define-key company-active-map (kbd "<tab>") nil)
