@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: new-figure-from-file
+# key: graphic
+# --
+\begin{figure}[${1:position}]
+    \centering
+    \includegraphics[width=\textwidth]{figures/${2:file}}
+\end{figure}
