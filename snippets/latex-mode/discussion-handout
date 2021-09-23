@@ -1,0 +1,34 @@
+# key: discussion-handout
+# name: discussion-handout
+# --
+\documentclass{article}
+\usepackage{mathtools}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{xcolor}
+\newcommand{\blue}{\color{blue}}
+\usepackage{comment}
+% Answer begin-end statments must be on own line with no whitespace
+% Including tab stops for indenting!
+\excludecomment{answer}
+\includecomment{answer}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Econ 330 -- Money and Banking}
+\rhead{Discussion Handout $1}
+
+\begin{document}
+\section*{TA Info}
+{\Large Gary Baker (he/him)}
+\begin{tabular}{rl}
+  \textbf{Office:} & Social Sciences 6470\\\\
+  \textbf{Email:} & gary.baker@wisc.edu\\\\
+  \textbf{Website:} & garygbaker.com\\\\
+  \textbf{Office Hours:} &  Mondays, 1--2 PM (Zoom, see Canvas for link)\\\\
+                   & Wednesdays, 9--10 AM (in person)
+\end{tabular}
+
+$0
+
+\end{document}

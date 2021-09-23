@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: minimal-latex-setup
+# key: min-latex
+# --
+\documentclass{article}
+\usepackage{mathtools}
+\usepackage[margin=1in]{geometry}
+
+\title{$1}
+\author{Gary Baker}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+$0
+
+\end{document}
