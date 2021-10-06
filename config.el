@@ -71,6 +71,11 @@
       (:prefix ("w" . "window")
        :desc "Close window and kill buffer" "D" #'close-and-kill-this-pane))
 
+(map! :leader
+      (:prefix ("TAB" . "workspace")
+       :desc "Rename workspace" ","
+       #'+workspace/rename))
+
 (after! company
   (define-key company-active-map (kbd "<tab>") nil)
   (define-key company-active-map (kbd "TAB") nil)

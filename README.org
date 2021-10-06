@@ -324,6 +324,15 @@ Add a function and keybinding that both closes a window and kills the buffer it 
        :desc "Close window and kill buffer" "D" #'close-and-kill-this-pane))
 #+end_src
 
+Change the keybinding for renaming workspaces. The default is =<leader> TAB r= which causes a bit of confusion for me when also working in tmux where the default is =<leader> ,=.
+Add a =<leader> TAB ,= keybinding for renaming to correct this.
+#+BEGIN_SRC emacs-lisp :tangle config.el
+(map! :leader
+      (:prefix ("TAB" . "workspace")
+       :desc "Rename workspace" ","
+       #'+workspace/rename))
+#+END_SRC
+
 ** Autocompletion
 
 By default the doom ~snippets~ module provides a whole bunch of snippets that I never use.
