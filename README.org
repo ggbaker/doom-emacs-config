@@ -288,6 +288,15 @@ By default, emacs deletes files permanently. Use the system trash instead:
 #+end_src
 
 ** Global keybindings
+*** Line navigation
+I typically use ~visual-fill-column-mode~ (especially in LaTeX) to shorten the line lengths without line breaks.
+This creates a distinction between a /logical/ line (navigated as normal with hjkl) and /visual/ lines.
+Use the arrow keys for navigating visual lines.:
+#+BEGIN_SRC emacs-lisp :tangle config.el
+(map! :m "<up>" #'evil-previous-visual-line)
+(map! :m "<down>" #'evil-next-visual-line)
+#+END_SRC
+
 *** Top level
 I use undo-tree-visualize a lot. Rebind it to the main SPC menu:
 #+begin_src emacs-lisp :tangle config.el

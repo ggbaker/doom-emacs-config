@@ -50,6 +50,9 @@
 
 (setq-default delete-by-moving-to-trash t)
 
+(map! :m "<up>" #'evil-previous-visual-line)
+(map! :m "<down>" #'evil-next-visual-line)
+
 (map! :leader
       :desc "Undo tree" "U" #'undo-tree-visualize)
 
