@@ -2,7 +2,7 @@
       user-mail-address "gary.baker@wisc.edu")
 
 ;; Set light and dark themes
-(defvar light-theme 'doom-gruvbox-light)
+
 (defvar dark-theme 'doom-dracula)
 ;; Load default dark theme
 (setq doom-theme dark-theme)
@@ -28,7 +28,7 @@
 (setq fill-column 79)
 (setq visual-fill-column-width 85)
 
-(setq +zen-text-scale 0.8)
+(setq +zen-text-scale 0.6)
 
 (defun doom-dashboard-draw-ascii-banner-fn ()
   (let* ((banner

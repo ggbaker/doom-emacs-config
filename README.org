@@ -259,7 +259,7 @@ I like to keep text columns to under 80 characters long. In code buffers, I use 
 
 By default, ~writeroom~ (zen) makes text way bigger. Shrink it a bit.
 #+BEGIN_SRC emacs-lisp :tangle config.el
-(setq +zen-text-scale 0.8)
+(setq +zen-text-scale 0.6)
 #+END_SRC
 
 *** Dashboard
