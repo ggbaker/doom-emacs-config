@@ -3,7 +3,7 @@
 
 ;; Set light and dark themes
 (defvar light-theme 'doom-gruvbox-light)
-(defvar dark-theme 'doom-gruvbox)
+(defvar dark-theme 'doom-dracula)
 ;; Load default dark theme
 (setq doom-theme dark-theme)
 ;; Toggle theme between light and dark
@@ -27,6 +27,8 @@
 
 (setq fill-column 79)
 (setq visual-fill-column-width 85)
+
+(setq +zen-text-scale 0.8)
 
 (defun doom-dashboard-draw-ascii-banner-fn ()
   (let* ((banner

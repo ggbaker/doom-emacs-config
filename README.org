@@ -64,7 +64,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        vi-tilde-fringe     ; fringe tildes to mark beyond EOB
        ;;window-select     ; visually switch windows
        workspaces          ; tab emulation, persistence & separate workspaces
-       ;;zen               ; distraction-free coding or writing
+       zen                 ; distraction-free coding or writing
 
        :editor
        (evil +everywhere)  ; come to the dark side, we have cookies
@@ -217,8 +217,8 @@ Set default user information:
 Use the default doom theme and fonts
 #+begin_src emacs-lisp :tangle config.el
 ;; Set light and dark themes
-(defvar light-theme 'doom-gruvbox-light)
-(defvar dark-theme 'doom-gruvbox)
+
+(defvar dark-theme 'doom-dracula)
 ;; Load default dark theme
 (setq doom-theme dark-theme)
 ;; Toggle theme between light and dark
@@ -256,6 +256,11 @@ I like to keep text columns to under 80 characters long. In code buffers, I use 
 (setq fill-column 79)
 (setq visual-fill-column-width 85)
 #+end_src
+
+By default, ~writeroom~ (zen) makes text way bigger. Shrink it a bit.
+#+BEGIN_SRC emacs-lisp :tangle config.el
+(setq +zen-text-scale 0.8)
+#+END_SRC
 
 *** Dashboard
 I prefer a slightly simpler splash banner on the dashboard. Redefine the function that draws new banner.
