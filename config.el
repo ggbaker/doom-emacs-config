@@ -81,6 +81,15 @@
        :desc "Rename workspace" ","
        #'+workspace/rename))
 
+;; create new frame
+(map! :leader
+      (:prefix ("w" . "window")
+       :desc "Create new frame" "F" #'make-frame))
+;; Switch to next frame
+(map! :leader
+      (:prefix ("w" . "window")
+       :desc "Next frame" "f" #'+evil/next-frame))
+
 (after! company
   (define-key company-active-map (kbd "<tab>") nil)
   (define-key company-active-map (kbd "TAB") nil)

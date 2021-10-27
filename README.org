@@ -347,6 +347,18 @@ Add a =<leader> TAB ,= keybinding for renaming to correct this.
        #'+workspace/rename))
 #+END_SRC
 
+Occasionally, I like to open a second frame. Frame operations are split between a few different prefixes, but it makes more sense to me to have them under the ~("w" . "window")~ prefix:
+#+BEGIN_SRC emacs-lisp :tangle config.el
+;; create new frame
+(map! :leader
+      (:prefix ("w" . "window")
+       :desc "Create new frame" "F" #'make-frame))
+;; Switch to next frame
+(map! :leader
+      (:prefix ("w" . "window")
+       :desc "Next frame" "f" #'+evil/next-frame))
+#+END_SRC
+
 ** Autocompletion
 
 By default the doom ~snippets~ module provides a whole bunch of snippets that I never use.
