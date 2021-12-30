@@ -229,23 +229,6 @@
 
 (setq-default TeX-engine 'xetex)
 
-(map! :map latex-mode-map
-      :localleader
-      :desc "Compile" "c" #'TeX-command-run-all
-      :desc "Compile command" "C" #'TeX-command-master
-      :desc "View" "v" #'TeX-view
-      :desc "Next error" "'" #'TeX-next-error
-      :desc "Show log" "l" #'TeX-recenter-output-buffer
-      )
-(map! :map LaTeX-mode-map
-      :localleader
-      :desc "Compile" "c" #'TeX-command-run-all
-      :desc "Compile" "C" #'TeX-command-master
-      :desc "View" "v" #'TeX-view
-      :desc "Next error" "'" #'TeX-next-error
-      :desc "Show log" "l" #'TeX-recenter-output-buffer
-      )
-
 (setq +latex-viewers '(pdf-tools))
 (when (not window-system)
   (setq +latex-viewers '())
