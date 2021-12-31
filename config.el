@@ -95,6 +95,14 @@
   (define-key company-active-map (kbd "TAB") nil)
   )
 
+(use-package eglot-ltex
+  :ensure t
+  :hook (text-mode . (lambda ()
+                       (require 'eglot-ltex)
+                       (call-interactively #'eglot)))
+  :init
+  (setq eglot-languagetool-server-path "~/ltex-ls/"))
+
 (setq bibtex-completion-bibliography
       '("~/Dropbox/Documents/working/library.bib"))
 (setq bibtex-completion-library-path

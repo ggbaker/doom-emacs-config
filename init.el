@@ -8,7 +8,7 @@
        :completion
        company             ; the ultimate code completion backend
        ;; (helm +fuzzy)    ; the *other* search engine for love and life
-       ;;ido               ; the other *other* search engine...
+       ;;ido
        (ivy +icons +prescient +childframe)        ; a search engine for love and life
 
        :ui
@@ -66,8 +66,8 @@
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       (spell +flyspell)   ; tasing you for misspelling mispelling
-       grammar             ; tasing grammar mistake every you make
+       (spell +flyspell)             ; tasing you for misspelling mispelling
+       ;; grammar             ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
@@ -79,7 +79,7 @@
        (eval +overlay)     ; run code, run (also, repls)
        gist                ; interacting with github gists
        lookup              ; navigate your code and its documentation
-       (lsp +peek)
+       (lsp +eglot)
        (magit +forge)             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds

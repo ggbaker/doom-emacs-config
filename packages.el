@@ -2,6 +2,9 @@
 
 (package! doom-snippets :ignore t)
 
+(package! eglot-ltex
+  :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))
+
 (package! org-superstar)
 
 ;;(package! org-roam)

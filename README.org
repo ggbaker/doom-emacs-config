@@ -36,7 +36,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        :completion
        company             ; the ultimate code completion backend
        ;; (helm +fuzzy)    ; the *other* search engine for love and life
-       ;;ido               ; the other *other* search engine...
+       ;;ido
        (ivy +icons +prescient +childframe)        ; a search engine for love and life
 
        :ui
@@ -94,8 +94,8 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       (spell +flyspell)   ; tasing you for misspelling mispelling
-       grammar             ; tasing grammar mistake every you make
+       (spell +flyspell)             ; tasing you for misspelling mispelling
+       ;; grammar             ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
@@ -107,7 +107,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        (eval +overlay)     ; run code, run (also, repls)
        gist                ; interacting with github gists
        lookup              ; navigate your code and its documentation
-       (lsp +peek)
+       (lsp +eglot)
        (magit +forge)             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -203,7 +203,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
 
 * General configuration
 ** Todo
-- [ ] Push to git with gpg ssh key on yubikey doesn't work.
+- [ ] Push to giit with gpg ssh key on yubikey doesn't work.
 
 ** Basic info
 Set default user information:
@@ -376,8 +376,31 @@ The following disables =TAB='s usage in ~company~:
   )
 #+end_src
 
+** Grammar and spell checking
+
+LTEX has much better grammar checking for LaTeX files.
+The ~lsp-ltex~ package wouldn't work for me, so I've set eglot as the language server in the init section.
+
+Install the ~eglot-ltex~ package from Github:
+#+BEGIN_SRC emacs-lisp :tangle packages.el
+(package! eglot-ltex
+  :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))
+#+END_SRC
+
+Configure the package. Note that ~ltex-ls~ must be installed separately.
+Download the tar from [[https://github.com/valentjn/ltex-ls/releases][here]] and extract to ~~/ltex-ls/~
+#+BEGIN_SRC emacs-lisp :tangle config.el
+(use-package eglot-ltex
+  :ensure t
+  :hook (text-mode . (lambda ()
+                       (require 'eglot-ltex)
+                       (call-interactively #'eglot)))
+  :init
+  (setq eglot-languagetool-server-path "~/ltex-ls/"))
+#+END_SRC
+
 * Citation management
-I use ivy-bibtex for searching through a bib file, inserting citations, and (with org-roam) taking notes on papers.
+I use ~ivy-bibtex~ for searching through a bib file, inserting citations, and (with org-roam) taking notes on papers.
 
 These packages are installed by the ~biblio~ module in the init section.
 The following sets the default bibliography file and where the pdfs are stored.
