@@ -647,15 +647,31 @@ I use the XeTeX engine by default for compiling. Set it as such:
 (setq-default TeX-engine 'xetex)
 #+end_src
 
+Set keybinding to run LatexMk (without having to use the command menu, or using ~TeX-command-run-all~ which also calls the viewer.)
+
+#+BEGIN_SRC emacs-lisp
+(defun run-LatexMk ()
+  (interactive)
+  (TeX-command "LatexMk" 'TeX-master-file))
+
+(map! :map latex-mode-map
+      :localleader
+      :desc "Compile" "c" #'run-LatexMk
+      :desc "Next error" "'" #'TeX-next-error
+      :desc "Show log" "l" #'TeX-recenter-output-buffer
+      )
+(map! :map LaTeX-mode-map
+      :localleader
+      :desc "Compile" "c" #'run-LatexMk
+      :desc "Next error" "'" #'TeX-next-error
+      :desc "Show log" "l" #'TeX-recenter-output-buffer
+      )
+#+END_SRC
+
 ** PDF viewer
-Use ~pdf-tools~ as the default pdf reader for LaTeX output. In a terminal, disable all LaTeX viewers entirely.
+Use ~pdf-tools~ as the default pdf reader for LaTeX output.
 #+begin_src emacs-lisp :tangle config.el
 (setq +latex-viewers '(pdf-tools))
-(when (not window-system)
-  (setq +latex-viewers '())
-  (add-hook! LaTeX-mode
-    (setq TeX-view-program-selection (remove '(output-pdf "Evince") TeX-view-program-selection))
-    (setq TeX-view-program-selection (remove '(output-pdf "preview-pane") TeX-view-program-selection))))
 #+end_src
 
 ** Citation management

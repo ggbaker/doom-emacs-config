@@ -237,12 +237,24 @@
 
 (setq-default TeX-engine 'xetex)
 
+(defun run-LatexMk ()
+  (interactive)
+  (TeX-command "LatexMk" 'TeX-master-file))
+
+(map! :map latex-mode-map
+      :localleader
+      :desc "Compile" "c" #'run-LatexMk
+      :desc "Next error" "'" #'TeX-next-error
+      :desc "Show log" "l" #'TeX-recenter-output-buffer
+      )
+(map! :map LaTeX-mode-map
+      :localleader
+      :desc "Compile" "c" #'run-LatexMk
+      :desc "Next error" "'" #'TeX-next-error
+      :desc "Show log" "l" #'TeX-recenter-output-buffer
+      )
+
 (setq +latex-viewers '(pdf-tools))
-(when (not window-system)
-  (setq +latex-viewers '())
-  (add-hook! LaTeX-mode
-    (setq TeX-view-program-selection (remove '(output-pdf "Evince") TeX-view-program-selection))
-    (setq TeX-view-program-selection (remove '(output-pdf "preview-pane") TeX-view-program-selection))))
 
 (general-define-key
  :states '(normal insert)
