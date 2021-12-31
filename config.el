@@ -241,18 +241,26 @@
   (interactive)
   (TeX-command "LatexMk" 'TeX-master-file))
 
-(map! :map latex-mode-map
-      :localleader
-      :desc "Compile" "c" #'run-LatexMk
-      :desc "Next error" "'" #'TeX-next-error
-      :desc "Show log" "l" #'TeX-recenter-output-buffer
-      )
-(map! :map LaTeX-mode-map
-      :localleader
-      :desc "Compile" "c" #'run-LatexMk
-      :desc "Next error" "'" #'TeX-next-error
-      :desc "Show log" "l" #'TeX-recenter-output-buffer
-      )
+(defun latex-compile-bindings ()
+  (interactive)
+  (map! :map latex-mode-map
+        :localleader
+        :desc "Compile" "m" #'run-LatexMk
+        :desc "Run a command" "c" #'TeX-command-master
+        :desc "Next error" "'" #'TeX-next-error
+        :desc "Show log" "l" #'TeX-recenter-output-buffer
+        )
+  (map! :map LaTeX-mode-map
+        :localleader
+        :desc "Compile" "m" #'run-LatexMk
+        :desc "Run a command" "c" #'TeX-command-master
+        :desc "Next error" "'" #'TeX-next-error
+        :desc "Show log" "l" #'TeX-recenter-output-buffer
+        )
+  )
+;; Above bindings partially conflict with defaults.
+;; Load after latex to avoid being overwritten
+(add-hook! LaTeX-mode #'latex-compile-bindings)
 
 (setq +latex-viewers '(pdf-tools))
 
