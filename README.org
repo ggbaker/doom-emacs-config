@@ -107,7 +107,8 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        (eval +overlay)     ; run code, run (also, repls)
        gist                ; interacting with github gists
        lookup              ; navigate your code and its documentation
-       (lsp +eglot)
+       ;; (lsp +eglot)
+       (lsp +peek)
        (magit +forge)             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
@@ -291,6 +292,57 @@ By default, emacs deletes files permanently. Use the system trash instead:
 (setq-default delete-by-moving-to-trash t)
 #+end_src
 
+** Grammar and spell checking
+LTEX has much better grammar checking for LaTeX files.
+#+BEGIN_SRC emacs-lisp :tangle packages.el
+(package! lsp-ltex)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle config.el
+(use-package lsp-ltex
+  :ensure t
+  :hook (text-mode . (lambda ()
+                       (require 'lsp-ltex)
+                       (lsp)))
+  :init
+  (setq lsp-ltex-version "15.2.0")
+  ;; disable spell-checking. Leave that to flyspell
+  ;; (Can't get lsp-ltex to work with custom dict words)
+  (setq lsp-ltex-disabled-rules
+              #s(hash-table size 30 data
+                        ("en-US" ["MORFOLOGIK_RULE_EN_US"]
+			  "es" ["MORFOLOGIK_RULE_ES"])
+			))
+  )
+#+END_SRC
+
+Sometimes LSP gets overwhelmed with errors, especially from LTEX.
+Increase the max number of errors:
+#+BEGIN_SRC emacs-lisp :tangle config.el
+(setq flycheck-checker-error-threshold 1500)
+#+END_SRC
+
+
+If the ~lsp-ltex~ package doesn't work then use ~eglot~ instead. Make sure to set eglot as the language server in the init section with ~(lsp +eglot)~.
+
+Install the ~eglot-ltex~ package from Github:
+#+BEGIN_SRC emacs-lisp :tangle packages.el
+;; (package! eglot-ltex
+;;   :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))
+#+END_SRC
+
+Configure the package. Note that ~ltex-ls~ must be installed separately.
+Download the tar from [[https://github.com/valentjn/ltex-ls/releases][here]] and extract to ~~/ltex-ls/~
+#+BEGIN_SRC emacs-lisp :tangle config.el
+;; (use-package eglot-ltex
+;;   :ensure t
+;;   :hook (text-mode . (lambda ()
+;;                        (require 'eglot-ltex)
+;;                        (call-interactively #'eglot)))
+;;   :init
+;;   (setq eglot-languagetool-server-path "~/ltex-ls/"))
+#+END_SRC
+
 ** Global keybindings
 *** Line navigation
 I typically use ~visual-fill-column-mode~ (especially in LaTeX) to shorten the line lengths without line breaks.
@@ -359,7 +411,6 @@ Occasionally, I like to open a second frame. Frame operations are split between 
 #+END_SRC
 
 ** Autocompletion
-
 By default the doom ~snippets~ module provides a whole bunch of snippets that I never use.
 The following disables those snippets:
 #+begin_src emacs-lisp :tangle packages.el
@@ -375,29 +426,6 @@ The following disables =TAB='s usage in ~company~:
   (define-key company-active-map (kbd "TAB") nil)
   )
 #+end_src
-
-** Grammar and spell checking
-
-LTEX has much better grammar checking for LaTeX files.
-The ~lsp-ltex~ package wouldn't work for me, so I've set eglot as the language server in the init section.
-
-Install the ~eglot-ltex~ package from Github:
-#+BEGIN_SRC emacs-lisp :tangle packages.el
-(package! eglot-ltex
-  :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))
-#+END_SRC
-
-Configure the package. Note that ~ltex-ls~ must be installed separately.
-Download the tar from [[https://github.com/valentjn/ltex-ls/releases][here]] and extract to ~~/ltex-ls/~
-#+BEGIN_SRC emacs-lisp :tangle config.el
-(use-package eglot-ltex
-  :ensure t
-  :hook (text-mode . (lambda ()
-                       (require 'eglot-ltex)
-                       (call-interactively #'eglot)))
-  :init
-  (setq eglot-languagetool-server-path "~/ltex-ls/"))
-#+END_SRC
 
 * Citation management
 I use ~ivy-bibtex~ for searching through a bib file, inserting citations, and (with org-roam) taking notes on papers.
