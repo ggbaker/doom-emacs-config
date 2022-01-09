@@ -2,6 +2,6 @@
 # name: emacs-lisp-block
 # key: ?sel
 # --
-#+BEGIN_SRC emacs-lisp
-$1
+#+BEGIN_SRC emacs-lisp :tangle $1
+$2
 #+END_SRC
