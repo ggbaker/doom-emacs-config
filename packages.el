@@ -2,9 +2,6 @@
 
 (package! lsp-ltex)
 
-;; (package! eglot-ltex
-;;   :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))
-
 (package! doom-snippets :ignore t)
 
 (package! org-superstar)

@@ -70,13 +70,8 @@
 
 (setq flycheck-checker-error-threshold 1500)
 
-;; (use-package eglot-ltex
-;;   :ensure t
-;;   :hook (text-mode . (lambda ()
-;;                        (require 'eglot-ltex)
-;;                        (call-interactively #'eglot)))
-;;   :init
-;;   (setq eglot-languagetool-server-path "~/ltex-ls/"))
+(after! lsp-mode
+  (add-to-list 'lsp-language-id-configuration '(org-mode . "org")))
 
 (map! :m "<up>" #'evil-previous-visual-line)
 (map! :m "<down>" #'evil-next-visual-line)

@@ -7,7 +7,7 @@
 #+author: Gary Baker
 #+email: gary.baker@wisc.edu
 
-This file contains my configuration for Doom Emacs. It will tangle into the required init.el, packages.el, and config.el.
+This file contains my configuration for Doom Emacs. It will tangle into the required =init.el=, =packages.el=, and =config.el=.
 
 Upon editing, simply run (in normal model, hit return):
 #+begin_src emacs-lisp :tangle no
@@ -203,8 +203,9 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
 #+end_src
 
 * General configuration
-** Todo
-- [ ] Push to giit with gpg ssh key on yubikey doesn't work.
+** To-do
+- [ ] Figure out custom per document ltex dictionaries like vscode.
+  For now, ltex spell-checking is simply disabled.
 
 ** Basic info
 Set default user information:
@@ -322,25 +323,11 @@ Increase the max number of errors:
 (setq flycheck-checker-error-threshold 1500)
 #+END_SRC
 
-
-If the ~lsp-ltex~ package doesn't work then use ~eglot~ instead. Make sure to set eglot as the language server in the init section with ~(lsp +eglot)~.
-
-Install the ~eglot-ltex~ package from Github:
-#+BEGIN_SRC emacs-lisp :tangle packages.el
-;; (package! eglot-ltex
-;;   :recipe (:host github :repo "emacs-languagetool/eglot-ltex"))
-#+END_SRC
-
-Configure the package. Note that ~ltex-ls~ must be installed separately.
-Download the tar from [[https://github.com/valentjn/ltex-ls/releases][here]] and extract to ~~/ltex-ls/~
+~lsp-ltex~ will tag stuff in code blocks in org as grammar mistakes.
+The following corrects that.
 #+BEGIN_SRC emacs-lisp :tangle config.el
-;; (use-package eglot-ltex
-;;   :ensure t
-;;   :hook (text-mode . (lambda ()
-;;                        (require 'eglot-ltex)
-;;                        (call-interactively #'eglot)))
-;;   :init
-;;   (setq eglot-languagetool-server-path "~/ltex-ls/"))
+(after! lsp-mode
+  (add-to-list 'lsp-language-id-configuration '(org-mode . "org")))
 #+END_SRC
 
 ** Global keybindings
@@ -411,7 +398,7 @@ Occasionally, I like to open a second frame. Frame operations are split between 
 #+END_SRC
 
 ** Autocompletion
-By default the doom ~snippets~ module provides a whole bunch of snippets that I never use.
+By default, the doom ~snippets~ module provides a bunch of snippets that I never use.
 The following disables those snippets:
 #+begin_src emacs-lisp :tangle packages.el
 (package! doom-snippets :ignore t)
@@ -428,10 +415,10 @@ The following disables =TAB='s usage in ~company~:
 #+end_src
 
 ** Undo setup
-By default ~undo-tree~ keeps all the undo history files in the .emacs.d directory.
+By default, ~undo-tree~ keeps all undo history files in the =.emacs.d= directory.
 Keep them in a hidden directory relative to the working file instead
 #+BEGIN_SRC emacs-lisp :tangle config.el
-(setq undo-tree-history-directory-alist (("." . ".undo-hist/")))
+(setq undo-tree-history-directory-alist '(("." . ".undo-hist/")))
 #+END_SRC
 
 * Citation management
@@ -454,7 +441,7 @@ Set the default action appropriately.
 #+end_src
 
 * Org setup
-** Todo
+** To-do
 - [ ] Formatting commands
   - Bold, italic, underline
 - [ ] Add new snippets
@@ -601,7 +588,7 @@ As with org, use visual-fill-column for LaTeX to manage column widths without ac
 ** Basic formatting
 The LaTeX module seems a bit borked, and most of the default keybindings in ~evil-mode~ don't seem to work. This seems to be related to ~AUCteX~'s bizarre multiple mode aliases (e.g. ~LaTeX-mode~ vs. ~latex-mode~).
 
-Here we'll recreate some commonly used formatting commands so as to avoid uncomfortable combos like ~C-c C-f C-i~.
+Here we'll recreate some commonly used formatting commands to avoid uncomfortable combos like ~C-c C-f C-i~.
 
 First define the necessary functions for the keybindings.
 #+BEGIN_SRC emacs-lisp :tangle config.el
@@ -737,7 +724,7 @@ The company autocomplete backends seem to get loaded in the wrong order and over
 #+end_src
 
 * PDF viewing
-For some reason some of the keybindings for ~pdf-tools~ get overloaded. I assume there's some issue with evil loading after pdf-tools and overloading the ~s~ prefix that ~pdf-tools~ uses for the various slicing commands for the usual evil snipe command. The only slice command I ever use is ~pdf-view-set-slice-from-bounding-box~ to cut margins off the document, so just bind that to something...
+For some reason some keybindings for ~pdf-tools~ get overloaded. I assume there's some issue with evil loading after pdf-tools and overloading the ~s~ prefix that ~pdf-tools~ uses for the various slicing commands for the usual evil snipe command. The only slice command I ever use is ~pdf-view-set-slice-from-bounding-box~ to cut margins off the document, so just bind that to something...
 #+begin_src emacs-lisp :tangle config.el
 (map! :map pdf-view-mode-map
       :leader
