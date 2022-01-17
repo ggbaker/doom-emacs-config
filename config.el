@@ -4,6 +4,7 @@
 ;; Set light and dark themes
 
 (defvar dark-theme 'doom-dracula)
+(defvar light-theme 'doom-solarized-light)
 ;; Load default dark theme
 (setq doom-theme dark-theme)
 ;; Toggle theme between light and dark

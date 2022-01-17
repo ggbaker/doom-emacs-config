@@ -218,8 +218,8 @@ Set default user information:
 Use the default doom theme and fonts
 #+begin_src emacs-lisp :tangle config.el
 ;; Set light and dark themes
-
 (defvar dark-theme 'doom-dracula)
+(defvar light-theme 'doom-solarized-light)
 ;; Load default dark theme
 (setq doom-theme dark-theme)
 ;; Toggle theme between light and dark
