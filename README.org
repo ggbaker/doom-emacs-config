@@ -427,6 +427,13 @@ The following disables =TAB='s usage in ~company~:
   )
 #+end_src
 
+** Undo setup
+By default ~undo-tree~ keeps all the undo history files in the .emacs.d directory.
+Keep them in a hidden directory relative to the working file instead
+#+BEGIN_SRC emacs-lisp :tangle config.el
+(setq undo-tree-history-directory-alist (("." . ".undo-hist/")))
+#+END_SRC
+
 * Citation management
 I use ~ivy-bibtex~ for searching through a bib file, inserting citations, and (with org-roam) taking notes on papers.
 
