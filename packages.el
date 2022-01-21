@@ -1,5 +1,7 @@
 (package! visual-fill-column)
 
+(package! telephone-line)
+
 (package! lsp-ltex)
 
 (package! doom-snippets :ignore t)
