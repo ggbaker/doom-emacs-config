@@ -241,6 +241,8 @@ Set the default font and size:
                  :family "Hack Nerd Font"
                  :size 13
                  :weight 'light))
+;; Fix issue with powerline fonts not rendering properly
+(setq doom-emoji-fallback-font-families nil)
 #+end_src
 
 Use line numbering by default

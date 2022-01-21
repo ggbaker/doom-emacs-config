@@ -2,7 +2,6 @@
       user-mail-address "gary.baker@wisc.edu")
 
 ;; Set light and dark themes
-
 (defvar dark-theme 'doom-dracula)
 (defvar light-theme 'doom-solarized-light)
 ;; Load default dark theme
@@ -23,6 +22,8 @@
                  :family "Hack Nerd Font"
                  :size 13
                  :weight 'light))
+;; Fix issue with powerline fonts not rendering properly
+(setq doom-emoji-fallback-font-families nil)
 
 (setq display-line-numbers-type t)
 
