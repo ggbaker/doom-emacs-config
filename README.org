@@ -63,12 +63,12 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        vi-tilde-fringe     ; fringe tildes to mark beyond EOB
        ;;window-select     ; visually switch windows
        workspaces          ; tab emulation, persistence & separate workspaces
-       ;; zen                 ; distraction-free coding or writing
+       ;; zen              ; distraction-free coding or writing
 
        :editor
        (evil +everywhere)  ; come to the dark side, we have cookies
        file-templates      ; auto-snippets for empty files
-       ;; fold                ; (nigh) universal code folding
+       ;; fold             ; (nigh) universal code folding
        ;;(format +onsave)  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
@@ -94,8 +94,8 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       (spell +flyspell)             ; tasing you for misspelling mispelling
-       ;; grammar             ; tasing grammar mistake every you make
+       (spell +flyspell)   ; tasing you for misspelling mispelling
+       ;; grammar          ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
@@ -107,9 +107,8 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        (eval +overlay)     ; run code, run (also, repls)
        gist                ; interacting with github gists
        lookup              ; navigate your code and its documentation
-       ;; (lsp +eglot)
-       (lsp +peek)
-       (magit +forge)             ; a git porcelain for Emacs
+       (lsp +peek)         ; lsp servers for suggestions and autocorrections
+       (magit +forge)      ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
        pdf                 ; pdf enhancements
@@ -119,10 +118,10 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
-       biblio
+       biblio              ; for managing citations
 
        :os
-       (:if IS-MAC macos)  ; improve compatibility with macOS
+       ;; (:if IS-MAC macos)  ; improve compatibility with macOS
        tty                 ; improve the terminal Emacs experience
 
        :lang
@@ -301,14 +300,15 @@ Use ~telephone-line~ as the modeline:
 Set the segments to display and then enable.
 #+BEGIN_SRC emacs-lisp :tangle config.el
 (setq telephone-line-lhs
-        '((evil   . (telephone-line-evil-tag-segment))
-          (accent . (telephone-line-vc-segment
-                     telephone-line-process-segment))
-          (nil    . (telephone-line-buffer-name-segment))))
+      '((evil   . (telephone-line-evil-tag-segment))
+        (accent . (telephone-line-vc-segment
+                   telephone-line-process-segment))
+        (nil    . (telephone-line-buffer-modified-segment
+                   telephone-line-buffer-name-segment))))
 (setq telephone-line-rhs
-        '((nil    . (telephone-line-flycheck-segment))
-          (accent . (telephone-line-major-mode-segment))
-          (evil   . (telephone-line-airline-position-segment))))
+      '((nil    . (telephone-line-flycheck-segment))
+        (accent . (telephone-line-major-mode-segment))
+        (evil   . (telephone-line-airline-position-segment))))
 
 (telephone-line-mode t)
 #+END_SRC
@@ -421,6 +421,15 @@ Occasionally, I like to open a second frame. Frame operations are split between 
 (map! :leader
       (:prefix ("w" . "window")
        :desc "Next frame" "f" #'+evil/next-frame))
+#+END_SRC
+
+*** File browsing
+Create a binding to toggle ~neotree~ visibility:
+#+BEGIN_SRC emacs-lisp :tangle config.el
+(map! :leader
+     (:prefix ("f" . "file")
+      :desc "Toggle neotree" "t" #'neotree-toggle
+      :desc "Current directory neotree" "T" #'neotree-dir))
 #+END_SRC
 
 ** Autocompletion

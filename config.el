@@ -53,15 +53,15 @@
      'face 'doom-dashboard-banner)))
 
 (setq telephone-line-lhs
-        '((evil   . (telephone-line-evil-tag-segment))
-          (accent . (telephone-line-vc-segment
-                     telephone-line-process-segment))
-          (nil    . (telephone-line-buffer-modified-segment
-                     telephone-line-buffer-name-segment))))
+      '((evil   . (telephone-line-evil-tag-segment))
+        (accent . (telephone-line-vc-segment
+                   telephone-line-process-segment))
+        (nil    . (telephone-line-buffer-modified-segment
+                   telephone-line-buffer-name-segment))))
 (setq telephone-line-rhs
-        '((nil    . (telephone-line-flycheck-segment))
-          (accent . (telephone-line-major-mode-segment))
-          (evil   . (telephone-line-airline-position-segment))))
+      '((nil    . (telephone-line-flycheck-segment))
+        (accent . (telephone-line-major-mode-segment))
+        (evil   . (telephone-line-airline-position-segment))))
 
 (telephone-line-mode t)
 
@@ -125,6 +125,11 @@
 (map! :leader
       (:prefix ("w" . "window")
        :desc "Next frame" "f" #'+evil/next-frame))
+
+(map! :leader
+     (:prefix ("f" . "file")
+      :desc "Toggle neotree" "t" #'neotree-toggle
+      :desc "Current directory neotree" "T" #'neotree-dir))
 
 (after! company
   (define-key company-active-map (kbd "<tab>") nil)

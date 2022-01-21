@@ -35,12 +35,12 @@
        vi-tilde-fringe     ; fringe tildes to mark beyond EOB
        ;;window-select     ; visually switch windows
        workspaces          ; tab emulation, persistence & separate workspaces
-       ;; zen                 ; distraction-free coding or writing
+       ;; zen              ; distraction-free coding or writing
 
        :editor
        (evil +everywhere)  ; come to the dark side, we have cookies
        file-templates      ; auto-snippets for empty files
-       ;; fold                ; (nigh) universal code folding
+       ;; fold             ; (nigh) universal code folding
        ;;(format +onsave)  ; automated prettiness
        ;;god               ; run Emacs commands without modifier keys
        ;;lispy             ; vim for lisp, for people who don't like vim
@@ -66,8 +66,8 @@
 
        :checkers
        syntax              ; tasing you for every semicolon you forget
-       (spell +flyspell)             ; tasing you for misspelling mispelling
-       ;; grammar             ; tasing grammar mistake every you make
+       (spell +flyspell)   ; tasing you for misspelling mispelling
+       ;; grammar          ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
@@ -79,9 +79,8 @@
        (eval +overlay)     ; run code, run (also, repls)
        gist                ; interacting with github gists
        lookup              ; navigate your code and its documentation
-       ;; (lsp +eglot)
-       (lsp +peek)
-       (magit +forge)             ; a git porcelain for Emacs
+       (lsp +peek)         ; lsp servers for suggestions and autocorrections
+       (magit +forge)      ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        ;;pass              ; password manager for nerds
        pdf                 ; pdf enhancements
@@ -91,10 +90,10 @@
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
-       biblio
+       biblio              ; for managing citations
 
        :os
-       (:if IS-MAC macos)  ; improve compatibility with macOS
+       ;; (:if IS-MAC macos)  ; improve compatibility with macOS
        tty                 ; improve the terminal Emacs experience
 
        :lang
