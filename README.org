@@ -450,10 +450,16 @@ The following disables =TAB='s usage in ~company~:
 #+end_src
 
 ** Undo setup
-By default, ~undo-tree~ keeps all undo history files in the =.emacs.d= directory.
-Keep them in a hidden directory relative to the working file instead
+
+The ~undo-tree~ history files very easily get corrupted. Disable persistent history since it doesn't really work anyways:
 #+BEGIN_SRC emacs-lisp :tangle config.el
-(setq undo-tree-history-directory-alist '(("." . ".undo-hist/")))
+(after! undo-tree
+    (setq undo-tree-auto-save-history nil))
+#+END_SRC
+
+If I can ever figure out the corruption issue, the following code will change the default directory to save the history file from one in =~/.emacs.d= to one in a directory local to the file in question:
+#+BEGIN_SRC emacs-lisp :tangle config.el
+;; (setq undo-tree-history-directory-alist '(("." . ".undo-hist/")))
 #+END_SRC
 
 * Citation management

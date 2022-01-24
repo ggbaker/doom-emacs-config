@@ -136,7 +136,10 @@
   (define-key company-active-map (kbd "TAB") nil)
   )
 
-(setq undo-tree-history-directory-alist '(("." . ".undo-hist/")))
+(after! undo-tree
+    (setq undo-tree-auto-save-history nil))
+
+;; (setq undo-tree-history-directory-alist '(("." . ".undo-hist/")))
 
 (setq bibtex-completion-bibliography
       '("~/Dropbox/Documents/working/library.bib"))
