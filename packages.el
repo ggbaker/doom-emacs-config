@@ -2,7 +2,7 @@
 
 (package! telephone-line)
 
-(package! lsp-ltex)
+;; (package! lsp-ltex)
 
 (package! doom-snippets :ignore t)
 

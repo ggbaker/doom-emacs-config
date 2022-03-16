@@ -67,26 +67,26 @@
 
 (setq-default delete-by-moving-to-trash t)
 
-(use-package lsp-ltex
-  :ensure t
-  :hook (text-mode . (lambda ()
-                       (require 'lsp-ltex)
-                       (lsp)))
-  :init
-  (setq lsp-ltex-version "15.2.0")
-  ;; disable spell-checking. Leave that to flyspell
-  ;; (Can't get lsp-ltex to work with custom dict words)
-  (setq lsp-ltex-disabled-rules
-              #s(hash-table size 30 data
-                        ("en-US" ["MORFOLOGIK_RULE_EN_US"]
-			  "es" ["MORFOLOGIK_RULE_ES"])
-			))
-  )
+;; (use-package lsp-ltex
+;;   :ensure t
+;;   :hook (text-mode . (lambda ()
+;;                        (require 'lsp-ltex)
+;;                        (lsp)))
+;;   :init
+;;   (setq lsp-ltex-version "15.2.0")
+;;   ;; disable spell-checking. Leave that to flyspell
+;;   ;; (Can't get lsp-ltex to work with custom dict words)
+;;   (setq lsp-ltex-disabled-rules
+;;               #s(hash-table size 30 data
+;;                         ("en-US" ["MORFOLOGIK_RULE_EN_US"]
+;; 			  "es" ["MORFOLOGIK_RULE_ES"])
+;; 			))
+;;   )
 
-(setq flycheck-checker-error-threshold 1500)
+;; (setq flycheck-checker-error-threshold 1500)
 
-(after! lsp-mode
-  (add-to-list 'lsp-language-id-configuration '(org-mode . "org")))
+;; (after! lsp-mode
+;;   (add-to-list 'lsp-language-id-configuration '(org-mode . "org")))
 
 (map! :m "<up>" #'evil-previous-visual-line)
 (map! :m "<down>" #'evil-next-visual-line)
@@ -272,6 +272,8 @@
 
 (map! :map cdlatex-mode-map
     :i "TAB" #'cdlatex-tab)
+
+(setq LaTeX-electric-left-right-brace t)
 
 (setq-default TeX-engine 'xetex)
 

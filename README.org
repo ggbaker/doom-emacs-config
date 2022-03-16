@@ -95,7 +95,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        :checkers
        syntax              ; tasing you for every semicolon you forget
        (spell +flyspell)   ; tasing you for misspelling mispelling
-       ;; grammar          ; tasing grammar mistake every you make
+       grammar          ; tasing grammar mistake every you make
 
        :tools
        ;;ansible
@@ -322,38 +322,38 @@ By default, emacs deletes files permanently. Use the system trash instead:
 ** Grammar and spell checking
 LTEX has much better grammar checking for LaTeX files.
 #+BEGIN_SRC emacs-lisp :tangle packages.el
-(package! lsp-ltex)
+;; (package! lsp-ltex)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle config.el
-(use-package lsp-ltex
-  :ensure t
-  :hook (text-mode . (lambda ()
-                       (require 'lsp-ltex)
-                       (lsp)))
-  :init
-  (setq lsp-ltex-version "15.2.0")
-  ;; disable spell-checking. Leave that to flyspell
-  ;; (Can't get lsp-ltex to work with custom dict words)
-  (setq lsp-ltex-disabled-rules
-              #s(hash-table size 30 data
-                        ("en-US" ["MORFOLOGIK_RULE_EN_US"]
-			  "es" ["MORFOLOGIK_RULE_ES"])
-			))
-  )
+;; (use-package lsp-ltex
+;;   :ensure t
+;;   :hook (text-mode . (lambda ()
+;;                        (require 'lsp-ltex)
+;;                        (lsp)))
+;;   :init
+;;   (setq lsp-ltex-version "15.2.0")
+;;   ;; disable spell-checking. Leave that to flyspell
+;;   ;; (Can't get lsp-ltex to work with custom dict words)
+;;   (setq lsp-ltex-disabled-rules
+;;               #s(hash-table size 30 data
+;;                         ("en-US" ["MORFOLOGIK_RULE_EN_US"]
+;; 			  "es" ["MORFOLOGIK_RULE_ES"])
+;; 			))
+;;   )
 #+END_SRC
 
 Sometimes LSP gets overwhelmed with errors, especially from LTEX.
 Increase the max number of errors:
 #+BEGIN_SRC emacs-lisp :tangle config.el
-(setq flycheck-checker-error-threshold 1500)
+;; (setq flycheck-checker-error-threshold 1500)
 #+END_SRC
 
 ~lsp-ltex~ will tag stuff in code blocks in org as grammar mistakes.
 The following corrects that.
 #+BEGIN_SRC emacs-lisp :tangle config.el
-(after! lsp-mode
-  (add-to-list 'lsp-language-id-configuration '(org-mode . "org")))
+;; (after! lsp-mode
+;;   (add-to-list 'lsp-language-id-configuration '(org-mode . "org")))
 #+END_SRC
 
 ** Global keybindings
@@ -703,6 +703,12 @@ Use ~cdlatex~'s snippit insertion rather than ~yasnippet~.
 (map! :map cdlatex-mode-map
     :i "TAB" #'cdlatex-tab)
 #+end_src
+
+** Autocompletion
+Autocomplete \left( \right) deliminiters in math mode:
+#+BEGIN_SRC emacs-lisp :tangle config.el
+(setq LaTeX-electric-left-right-brace t)
+#+END_SRC
 
 ** Compiling and viewing
 I use the XeTeX engine by default for compiling. Set it as such:
