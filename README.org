@@ -51,7 +51,7 @@ Module documentation can be found in the Doom documentation (~SPC h d h~).
        indent-guides       ; highlighted indent columns
        ligatures           ; ligatures and symbols to make your code pretty again
        ;;minimap           ; show a map of the code on the side
-       ;; modeline            ; snazzy, Atom-inspired modeline, plus API
+       modeline            ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
        neotree             ; a project drawer, like NERDTree for vim
        ophints             ; highlight the region an operation acts on
@@ -294,23 +294,23 @@ I also prefer the appearance of something like vim's ~airline~ extension.
 
 Use ~telephone-line~ as the modeline:
 #+BEGIN_SRC emacs-lisp :tangle packages.el
-(package! telephone-line)
+;; (package! telephone-line)
 #+END_SRC
 
 Set the segments to display and then enable.
 #+BEGIN_SRC emacs-lisp :tangle config.el
-(setq telephone-line-lhs
-      '((evil   . (telephone-line-evil-tag-segment))
-        (accent . (telephone-line-vc-segment
-                   telephone-line-process-segment))
-        (nil    . (telephone-line-buffer-modified-segment
-                   telephone-line-buffer-name-segment))))
-(setq telephone-line-rhs
-      '((nil    . (telephone-line-flycheck-segment))
-        (accent . (telephone-line-major-mode-segment))
-        (evil   . (telephone-line-airline-position-segment))))
+;; (setq telephone-line-lhs
+;;       '((evil   . (telephone-line-evil-tag-segment))
+;;         (accent . (telephone-line-vc-segment
+;;                    telephone-line-process-segment))
+;;         (nil    . (telephone-line-buffer-modified-segment
+;;                    telephone-line-buffer-name-segment))))
+;; (setq telephone-line-rhs
+;;       '((nil    . (telephone-line-flycheck-segment))
+;;         (accent . (telephone-line-major-mode-segment))
+;;         (evil   . (telephone-line-airline-position-segment))))
 
-(telephone-line-mode t)
+;; (telephone-line-mode t)
 #+END_SRC
 
 ** Technical stuff

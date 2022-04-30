@@ -1,6 +1,6 @@
 (package! visual-fill-column)
 
-(package! telephone-line)
+;; (package! telephone-line)
 
 ;; (package! lsp-ltex)
 
