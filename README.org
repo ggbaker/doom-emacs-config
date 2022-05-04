@@ -320,6 +320,12 @@ By default, emacs deletes files permanently. Use the system trash instead:
 #+end_src
 
 ** Grammar and spell checking
+To use languagetool grammar checking, we need to set the path to the jar file (jar needs to be manually downloaded).
+#+BEGIN_SRC emacs-lisp :tangle config.el
+(setq langtool-language-tool-jar "/home/gbaker/.local/LanguageTool/languagetool-commandline.jar")
+#+END_SRC
+
+*** LTEX setup (Not currently used)
 LTEX has much better grammar checking for LaTeX files.
 #+BEGIN_SRC emacs-lisp :tangle packages.el
 ;; (package! lsp-ltex)

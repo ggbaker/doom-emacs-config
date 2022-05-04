@@ -67,6 +67,8 @@
 
 (setq-default delete-by-moving-to-trash t)
 
+(setq langtool-language-tool-jar "/home/gbaker/.local/LanguageTool/languagetool-commandline.jar")
+
 ;; (use-package lsp-ltex
 ;;   :ensure t
 ;;   :hook (text-mode . (lambda ()
